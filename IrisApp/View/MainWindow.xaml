@@ -1,0 +1,46 @@
+﻿<!--Based on: https://github.com/Abel13/Pizzaria1-->
+<Window x:Class="IrisApp.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converter="clr-namespace:IrisApp.Converter"
+        mc:Ignorable="d" Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <converter:SelectedPageBrushConverter x:Key="SelectedPageBrushConverter"/>
+    </Window.Resources>
+    <Grid Background="#FFEEEEEE">
+        <Grid Margin="200 55 0 0">
+            <ContentControl  Content="{Binding CurrentPageViewModel}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        </Grid>
+        <Grid Width="200" HorizontalAlignment="Left" Background="#FF222222">
+            <ListView x:Name="ListViewMenu" Margin="0 100" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18"  SelectedIndex ="{Binding SelectedIndex}">
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="{Binding SelectedIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>
+                        <TextBlock Text="Home" FontSize="17" VerticalAlignment="Center" Margin="20 0" Foreground="{Binding SelectedIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Database" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="{Binding SelectedIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 1}"/>
+                        <TextBlock Text="Database" FontSize="17" VerticalAlignment="Center" Margin="20 0" Foreground="{Binding SelectedIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 1}"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="{Binding SelectedIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 2}"/>
+                        <TextBlock Text="Settings" FontSize="17" VerticalAlignment="Center" Margin="20 0" Foreground="{Binding SelectedIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 2}"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="About" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="{Binding SelectedIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 3}"/>
+                        <TextBlock Text="About" FontSize="17" VerticalAlignment="Center" Margin="20 0" Foreground="{Binding SelectedIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 3}"/>
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>
