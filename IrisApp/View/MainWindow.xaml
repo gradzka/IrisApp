@@ -6,11 +6,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:converter="clr-namespace:IrisApp.Converter"
-        mc:Ignorable="d" Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+        mc:Ignorable="d" Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="{Binding CurrentWindowState, Mode=TwoWay}"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
     <Window.Resources>
         <converter:SelectedPageBrushConverter x:Key="SelectedPageBrushConverter"/>
     </Window.Resources>
     <Grid Background="#FFEEEEEE">
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#FF0069C0" Height="10"/>
+            <Grid Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0">
+                    <Button Command="{Binding MinimizeApp}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
+                        <materialDesign:PackIcon Kind="WindowMinimize" Margin="0 7 0 0"/>
+                    </Button>
+                    <Button Command="{Binding MaximizeOrRestoreApp}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Margin="0 0 0 0">
+                        <materialDesign:PackIcon>
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="WindowMaximize"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMaximized}" Value="True">
+                                            <Setter Property="Kind" Value="WindowRestore"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsMaximized}" Value="False">
+                                            <Setter Property="Kind" Value="WindowMaximize"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                    </Button>
+
+                    <Button x:Name="ButtonFechar" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
+                        <materialDesign:PackIcon Kind="WindowClose"/>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction MethodName="Close" TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
         <Grid Margin="200 55 0 0">
             <ContentControl  Content="{Binding CurrentPageViewModel}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
         </Grid>

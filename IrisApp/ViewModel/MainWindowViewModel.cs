@@ -2,14 +2,20 @@
 
 namespace IrisApp.ViewModel
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows;
+    using System.Windows.Input;
+    using IrisApp.Utils;
 
     public class MainWindowViewModel : BaseViewModel
     {
+        private bool isMaximized = false;
         private int selectedItem = 0;
         private IPageViewModel currentPageViewModel;
         private List<IPageViewModel> pageViewModels;
+        private WindowState currentWindowState;
 
         public MainWindowViewModel()
         {
@@ -21,6 +27,38 @@ namespace IrisApp.ViewModel
 
             this.CurrentPageViewModel = this.PageViewModels[0];
         }
+
+        public WindowState CurrentWindowState
+        {
+            get => this.currentWindowState;
+
+            set
+            {
+                this.currentWindowState = value;
+                this.OnPropertyChanged(nameof(this.CurrentWindowState));
+            }
+        }
+
+        public bool IsMaximized
+        {
+            get => this.isMaximized;
+
+            set
+            {
+                this.isMaximized = value;
+                this.OnPropertyChanged(nameof(this.IsMaximized));
+            }
+        }
+
+        public ICommand RestoreApp => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Normal; });
+
+        public ICommand MinimizeApp => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Minimized; });
+
+        public ICommand MaximizeOrRestoreApp => new RelayCommand<Action>(param =>
+        {
+            this.CurrentWindowState = this.IsMaximized ? WindowState.Normal : WindowState.Maximized;
+            this.IsMaximized = !this.IsMaximized;
+        });
 
         public List<IPageViewModel> PageViewModels
         {
@@ -37,10 +75,7 @@ namespace IrisApp.ViewModel
 
         public IPageViewModel CurrentPageViewModel
         {
-            get
-            {
-                return this.currentPageViewModel;
-            }
+            get => this.currentPageViewModel;
 
             set
             {
@@ -51,10 +86,7 @@ namespace IrisApp.ViewModel
 
         public int SelectedIndex
         {
-            get
-            {
-                return this.selectedItem;
-            }
+            get => this.selectedItem;
 
             set
             {
