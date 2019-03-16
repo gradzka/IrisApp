@@ -1,16 +1,16 @@
 ﻿<!--Based on: https://github.com/Abel13/Pizzaria1 & https://github.com/Abel13/NavigationDrawer-->
-<Window x:Class="IrisApp.View.MainWindow"
+<Window x:Class="IrisApp.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:converter="clr-namespace:IrisApp.Converter"
+        xmlns:converters="clr-namespace:IrisApp.Converters"
         mc:Ignorable="d" Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="{Binding CurrentWindowState, Mode=TwoWay}" AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
     <Window.Resources>
-        <converter:SelectedPageBrushConverter x:Key="SelectedPageBrushConverter"/>
+        <converters:SelectedPageBrushConverter x:Key="SelectedPageBrushConverter"/>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
@@ -34,12 +34,12 @@
     </Window.Triggers>
     <Grid Background="#FFEEEEEE">
         <StackPanel VerticalAlignment="Top">
-            <Grid Background="#42a5f5" Height="30">
+            <Grid Background="#673ab7" Height="30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0">
-                    <Button Command="{Binding MinimizeApp}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="White">
+                    <Button Command="{Binding MinimizeApp}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="White" ToolTip="Minimize">
                         <materialDesign:PackIcon Kind="WindowMinimize" Margin="0 7 0 0"/>
                     </Button>
-                    <Button Command="{Binding MaximizeOrRestoreApp}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="White" Margin="0 0 0 0">
+                    <Button Style="{DynamicResource ResourceKey=MaximizeRestoreButtonStyle}" Command="{Binding MaximizeOrRestoreApp}" Width="30" Height="30" Padding="0" Margin="0 0 0 0">
                         <materialDesign:PackIcon>
                             <materialDesign:PackIcon.Style>
                                 <Style TargetType="materialDesign:PackIcon">
@@ -56,7 +56,7 @@
                             </materialDesign:PackIcon.Style>
                         </materialDesign:PackIcon>
                     </Button>
-                    <Button Width="30" Height="30" Background="#e53935" BorderBrush="#e53935" Padding="0" Foreground="White">
+                    <Button Width="30" Height="30" Background="#e53935" BorderBrush="#e53935" Padding="0" Foreground="White" ToolTip="Close">
                         <materialDesign:PackIcon Kind="WindowClose"/>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -66,7 +66,7 @@
                     </Button>
                 </StackPanel>
             </Grid>
-    </StackPanel>
+        </StackPanel>
         <Grid Margin="70 30 0 0">
             <ContentControl  Content="{Binding CurrentPageViewModel}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
         </Grid>
@@ -89,31 +89,31 @@
                     </Button>
                 </Grid>
                 <ListView x:Name="ListViewMenu" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18"  SelectedIndex ="{Binding SelectedPageIndex}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListViewItem Height="60">
-                    <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="10" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>
-                            <TextBlock Text="Home" FontSize="17" VerticalAlignment="Center" Margin="20 0" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem Height="60">
-                    <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Database" Width="30" Height="30" VerticalAlignment="Center" Margin="10" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 1}"/>
-                            <TextBlock Text="Database" FontSize="17" VerticalAlignment="Center" Margin="20 0" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 1}"/>
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem Height="60">
-                    <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" VerticalAlignment="Center" Margin="10" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 2}"/>
-                            <TextBlock Text="Settings" FontSize="17" VerticalAlignment="Center" Margin="20 0" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 2}"/>
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem Height="60">
-                    <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="About" Width="30" Height="30" VerticalAlignment="Center" Margin="10" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 3}"/>
-                            <TextBlock Text="About" FontSize="17" VerticalAlignment="Center" Margin="20 0" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 3}"/>
-                    </StackPanel>
-                </ListViewItem>
-            </ListView>
+                    <ListViewItem Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>
+                            <TextBlock Text="Home" FontSize="17" VerticalAlignment="Center" Margin="10 0" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Database" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 1}"/>
+                            <TextBlock Text="Database" FontSize="17" VerticalAlignment="Center" Margin="10 0" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 1}"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 2}"/>
+                            <TextBlock Text="Settings" FontSize="17" VerticalAlignment="Center" Margin="10 0" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 2}"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="About" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 3}"/>
+                            <TextBlock Text="About" FontSize="17" VerticalAlignment="Center" Margin="10 0" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 3}"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
             </StackPanel>
         </Grid>
     </Grid>

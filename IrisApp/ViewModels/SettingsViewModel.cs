@@ -1,4 +1,4 @@
-﻿namespace IrisApp.ViewModel
+﻿namespace IrisApp.ViewModels
 {
     public class SettingsViewModel : BaseViewModel, IPageViewModel
     {

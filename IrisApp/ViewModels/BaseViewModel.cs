@@ -1,6 +1,6 @@
 ﻿// https://www.technical-recipes.com/2018/navigating-between-views-in-wpf-mvvm/
 
-namespace IrisApp.ViewModel
+namespace IrisApp.ViewModels
 {
     using System;
     using System.ComponentModel;

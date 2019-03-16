@@ -1,6 +1,6 @@
 ﻿// https://rachel53461.wordpress.com/2011/12/18/navigation-with-mvvm-2/
 
-namespace IrisApp.ViewModel
+namespace IrisApp.ViewModels
 {
     using System;
     using System.Collections.Generic;

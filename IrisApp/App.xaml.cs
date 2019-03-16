@@ -1,8 +1,8 @@
 ﻿namespace IrisApp
 {
     using System.Windows;
-    using IrisApp.View;
-    using IrisApp.ViewModel;
+    using IrisApp.ViewModels;
+    using IrisApp.Views;
 
     /// <summary>
     /// Interaction logic for App.xaml

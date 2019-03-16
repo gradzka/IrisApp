@@ -1,4 +1,4 @@
-﻿namespace IrisApp.Converter
+﻿namespace IrisApp.Converters
 {
     using System;
     using System.Globalization;
