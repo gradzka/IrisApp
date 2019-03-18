@@ -6,65 +6,61 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodelsHome="clr-namespace:IrisApp.ViewModels.Home"             
              Height="auto" Width="auto">
     <Grid>
         <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="30*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Height="300" Background="#FFF3F3F3" Margin="10">
-                    <Grid.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" ShadowDepth="1"/>
-                    </Grid.Effect>
-
-                    <StackPanel Width="200">
-                        <TextBlock Margin="10" FontFamily="Showcard Gothic" FontSize="12" Text="Text1" Foreground="#FFC00000"/>
-                        <Image Source="" Width="200" Height="150" Stretch="UniformToFill" />
-                        <TextBlock FontSize="8" Margin="5" TextWrapping="Wrap" FontFamily="Champagne &amp; Limousines">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae est vel turpis hendrerit vulputate. In eleifend, nunc eu egestas.
-                        </TextBlock>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="R$ 25" VerticalAlignment="Center" Margin="10" FontSize="20" FontFamily="Champagne &amp; Limousines"/>
-                            <Button Width="100" Content="Button1" FontFamily="Champagne &amp; Limousines" Margin="10"/>
-                        </StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="85"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox materialDesign:HintAssist.Hint="Select source" Margin="10" MinWidth="72" VerticalAlignment="Center" ItemsSource="{Binding DeviceSources}" DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedDeviceSource}" SelectedValuePath="Name" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox.SelectedItem>
+                                <Binding Path="SelectedValueOne" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
+                            </ComboBox.SelectedItem>
+                        </ComboBox>
+                        <Button Width="100" Content="Load view" FontFamily="Champagne &amp; Limousines" Margin="10"/>
+                        <Button Width="100" Content="Save to DB" FontFamily="Champagne &amp; Limousines" Margin="10"/>
+                        <Button Width="100" Content="Identify" FontFamily="Champagne &amp; Limousines" Margin="10"/>
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Column="1" Height="300" Background="#FFF3F3F3" Margin="10">
-                    <Grid.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" ShadowDepth="1"/>
-                    </Grid.Effect>
-
-                    <StackPanel Width="200">
-                        <TextBlock Margin="10" FontFamily="Showcard Gothic" FontSize="12" Text="Text2" Foreground="#FFC00000"/>
-                        <Image Source="" Width="200" Height="150" Stretch="UniformToFill" />
-                        <TextBlock FontSize="8" Margin="5" TextWrapping="Wrap" FontFamily="Champagne &amp; Limousines">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae est vel turpis hendrerit vulputate. In eleifend, nunc eu egestas.
-                        </TextBlock>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="R$ 27" VerticalAlignment="Center" Margin="10" FontSize="20" FontFamily="Champagne &amp; Limousines"/>
-                            <Button Width="100" Content="Button2" FontFamily="Champagne &amp; Limousines" Margin="10"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-                <Grid Grid.Column="2" Height="300" Background="#FFF3F3F3" Margin="10">
-                    <Grid.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" ShadowDepth="1"/>
-                    </Grid.Effect>
-
-                    <StackPanel Width="200">
-                        <TextBlock Margin="10" FontFamily="Showcard Gothic" FontSize="12" Text="Text3" Foreground="#FFC00000"/>
-                        <Image Source="" Width="200" Height="150" Stretch="UniformToFill" />
-                        <TextBlock FontSize="8" Margin="5" TextWrapping="Wrap" FontFamily="Champagne &amp; Limousines">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae est vel turpis hendrerit vulputate. In eleifend, nunc eu egestas.
-                        </TextBlock>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="R$ 28" VerticalAlignment="Center" Margin="10" FontSize="20" FontFamily="Champagne &amp; Limousines"/>
-                            <Button Width="100" Content="Button3" FontFamily="Champagne &amp; Limousines" Margin="10"/>
-                        </StackPanel>
-                    </StackPanel>
+                <Grid Grid.Column="0" Grid.Row="1"></Grid>
+                <Grid Grid.Column="1" Grid.RowSpan="2">
+                    <ItemsControl ItemsSource="{Binding Notifications}" Grid.IsSharedSizeScope="True">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type viewmodelsHome:NotificationViewModel}">
+                                <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                        </Grid.ColumnDefinitions>
+                                        <ToggleButton VerticalAlignment="Center" IsChecked="{Binding IsSelected}" Style="{StaticResource MaterialDesignActionLightToggleButton}" Content="{Binding Code}" />
+                                        <StackPanel Margin="8 0 0 0" Grid.Column="1">
+                                            <TextBlock FontWeight="Bold" Text="{Binding Name}" />
+                                            <TextBlock Text="{Binding Description}" />
+                                        </StackPanel>
+                                        <Button Command="{Binding DeleteNotification}" Grid.Column="2" Width="30" Height="30" Style="{DynamicResource ResourceKey=DeleteForeverButtonStyle}" Padding="0" Margin="8 0 0 0" ToolTip="Delete">
+                                            <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </Grid>
         </materialDesign:TransitioningContent>

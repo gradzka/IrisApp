@@ -8,6 +8,7 @@ namespace IrisApp.ViewModels
     using System.Windows;
     using System.Windows.Input;
     using IrisApp.Utils;
+    using IrisApp.ViewModels.Home;
 
     public class MainWindowViewModel : BaseViewModel
     {
@@ -36,6 +37,11 @@ namespace IrisApp.ViewModels
 
             set
             {
+                if (this.closeMenuButtonVisibility == value)
+                {
+                    return;
+                }
+
                 this.closeMenuButtonVisibility = value;
                 this.OnPropertyChanged(nameof(this.CloseMenuButtonVisibility));
             }
@@ -47,6 +53,11 @@ namespace IrisApp.ViewModels
 
             set
             {
+                if (this.currentPageViewModel == value)
+                {
+                    return;
+                }
+
                 this.currentPageViewModel = value;
                 this.OnPropertyChanged(nameof(this.CurrentPageViewModel));
             }
@@ -58,6 +69,11 @@ namespace IrisApp.ViewModels
 
             set
             {
+                if (this.currentWindowState == value)
+                {
+                    return;
+                }
+
                 this.currentWindowState = value;
                 this.OnPropertyChanged(nameof(this.CurrentWindowState));
             }
@@ -69,6 +85,11 @@ namespace IrisApp.ViewModels
 
             set
             {
+                if (this.isMaximized == value)
+                {
+                    return;
+                }
+
                 this.isMaximized = value;
                 this.OnPropertyChanged(nameof(this.IsMaximized));
             }
@@ -80,6 +101,11 @@ namespace IrisApp.ViewModels
 
             set
             {
+                if (this.openMenuButtonVisibility == value)
+                {
+                    return;
+                }
+
                 this.openMenuButtonVisibility = value;
                 this.OnPropertyChanged(nameof(this.OpenMenuButtonVisibility));
             }
@@ -104,6 +130,11 @@ namespace IrisApp.ViewModels
 
             set
             {
+                if (this.selectedPageIndex == value)
+                {
+                    return;
+                }
+
                 this.selectedPageIndex = value;
                 this.OnGoToPage(null);
                 this.OnPropertyChanged(nameof(this.SelectedPageIndex));

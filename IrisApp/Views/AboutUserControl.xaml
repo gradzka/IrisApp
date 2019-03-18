@@ -68,7 +68,7 @@
                                 </Button>
                             </Grid>
                             <Grid Grid.Column="1" Grid.Row="1" Margin="8 10 10 10">
-                                <Button Style="{DynamicResource MaterialDesignRaisedButton}" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" Height="Auto" Command="{Binding OpenLink}" CommandParameter="2">
+                                <Button Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" Height="Auto" Command="{Binding OpenLink}" CommandParameter="2">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="GithubCircle" Width="30" Height="30"/>
                                         <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="https://github.com/kazimierczak-robert"/>
