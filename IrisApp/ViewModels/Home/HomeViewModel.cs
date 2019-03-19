@@ -10,6 +10,7 @@
 
         private ObservableCollection<SourceViewModel> sources;
         private ObservableCollection<NotificationViewModel> notifications;
+        private char chosenEye = 'L';
         private string selectedSource = string.Empty;
 
         public HomeViewModel()
@@ -55,6 +56,22 @@
             }
         }
 
+        public char ChosenEye
+        {
+            get => this.chosenEye;
+
+            set
+            {
+                if (this.chosenEye == value)
+                {
+                    return;
+                }
+
+                this.chosenEye = value;
+                this.OnPropertyChanged(nameof(this.ChosenEye));
+            }
+        }
+
         public string SelectedSource
         {
             get => this.selectedSource;
@@ -80,6 +97,31 @@
             {
                 // TODO
             }
+        });
+
+        public ICommand ScanSources => new RelayCommand<Action>(param =>
+        {
+            // TODO
+        });
+
+        public ICommand UseSelectedSource => new RelayCommand<Action>(param =>
+        {
+            // TODO
+        });
+
+        public ICommand SaveTemplateToDatabase => new RelayCommand<Action>(param =>
+        {
+            // TODO
+        });
+
+        public ICommand SaveImage => new RelayCommand<Action>(param =>
+        {
+            // TODO
+        });
+
+        public ICommand Identify => new RelayCommand<Action>(param =>
+        {
+            // TODO
         });
 
         private void AddSource(string name)
