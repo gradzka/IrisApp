@@ -1,2 +1,2 @@
 # IrisIdentification
-Simple app to iris identification with VeriEye SDK
+GUI project to iris identification
