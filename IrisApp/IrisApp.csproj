@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\GridColumnSizeConverter.cs" />
     <Compile Include="Converters\SelectedPageBrushConverter.cs" />
     <Compile Include="Utils\EventArgs.cs" />
     <Compile Include="Utils\EventRaiser.cs" />
@@ -72,7 +73,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
-    <Compile Include="ViewModels\Home\DeviceSourceViewModel.cs" />
+    <Compile Include="ViewModels\Home\SourceViewModel.cs" />
     <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationViewModel.cs" />

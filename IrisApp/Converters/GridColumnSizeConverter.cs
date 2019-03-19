@@ -3,20 +3,12 @@
     using System;
     using System.Globalization;
     using System.Windows.Data;
-    using System.Windows.Media;
 
-    public class SelectedPageBrushConverter : IValueConverter
+    public class GridColumnSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value.ToString() != parameter.ToString())
-            {
-                return (SolidColorBrush)new BrushConverter().ConvertFrom("#424242");
-            }
-            else
-            {
-                return (SolidColorBrush)new BrushConverter().ConvertFrom("#FFEEEEEE");
-            }
+            return System.Convert.ToDouble(value) - System.Convert.ToDouble(parameter);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

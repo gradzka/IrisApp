@@ -1,6 +1,6 @@
 ﻿namespace IrisApp.ViewModels.Home
 {
-    public class DeviceSourceViewModel : BaseViewModel, IPageViewModel
+    public class SourceViewModel : BaseViewModel, IPageViewModel
     {
         private string name = string.Empty;
 

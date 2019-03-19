@@ -3,7 +3,7 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     
 <Style x:Key="DeleteForeverButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
-        <Setter Property="Foreground" Value="#ff6f60"/>
+        <Setter Property="Foreground" Value="#424242"/>
         <Setter Property="Background" Value="{x:Null}"/>
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="Template">
@@ -19,7 +19,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="border" Value="{x:Null}"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
-                            <Setter Property="Foreground" Value="#ff8f84"/>
+                            <Setter Property="Foreground" Value="#6d6d6d"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.23"/>

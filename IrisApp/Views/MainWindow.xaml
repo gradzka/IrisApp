@@ -70,7 +70,7 @@
         <Grid Margin="70 30 0 0">
             <ContentControl  Content="{Binding CurrentPageViewModel}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
         </Grid>
-        <Grid x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#FF222222">
+        <Grid x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#1b1b1b">
             <StackPanel>
                 <Grid Height="150" Background="White" RenderTransformOrigin="0.5,0.5">
                     <Grid.RenderTransform>
@@ -81,14 +81,14 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </Grid.RenderTransform>
-                    <Button x:Name="OpenMenuButton" Visibility="{Binding OpenMenuButtonVisibility}" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF222222" Command="{Binding OpenMenu}">
+                    <Button x:Name="OpenMenuButton" Visibility="{Binding OpenMenuButtonVisibility}" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#1b1b1b" Command="{Binding OpenMenu}">
                         <materialDesign:PackIcon Kind="Menu" Width="30" Height="30"/>
                     </Button>
-                    <Button x:Name="CloseMenuButton" Visibility="{Binding CloseMenuButtonVisibility}" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF222222" Command="{Binding CloseMenu}">
+                    <Button x:Name="CloseMenuButton" Visibility="{Binding CloseMenuButtonVisibility}" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#1b1b1b" Command="{Binding CloseMenu}">
                         <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30"/>
                     </Button>
                 </Grid>
-                <ListView x:Name="ListViewMenu" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18"  SelectedIndex ="{Binding SelectedPageIndex}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView x:Name="ListViewMenu" Foreground="#6d6d6d" FontFamily="Champagne &amp; Limousines" FontSize="18"  SelectedIndex ="{Binding SelectedPageIndex}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>

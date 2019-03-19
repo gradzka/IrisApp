@@ -82,7 +82,7 @@ namespace IrisApp.ViewModels.Home
             {
                 this.Notifications.Remove(this);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // TODO
             }

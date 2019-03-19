@@ -2,37 +2,42 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Windows.Input;
+    using IrisApp.Utils;
 
     public class HomeViewModel : BaseViewModel, IPageViewModel
     {
 
-        private ObservableCollection<DeviceSourceViewModel> deviceSources;
+        private ObservableCollection<SourceViewModel> sources;
         private ObservableCollection<NotificationViewModel> notifications;
-        private string selectedDeviceSource = string.Empty;
+        private string selectedSource = string.Empty;
 
         public HomeViewModel()
         {
             this.Notifications = new ObservableCollection<NotificationViewModel>();
-            this.AddNotification('M', "Material Design", "Material Design");
-            this.AddNotification('D', "Dragablz", "Dragablz Tab Control");
-            this.AddNotification('P', "Predator", "If it bleeds, we can kill it");
+            for (int i = 0; i < 5; i++)
+            {
+                this.AddNotification('M', "Material Design", "Material Design");
+                this.AddNotification('D', "Dragablz", "Dragablz Tab Control");
+                this.AddNotification('P', "Predator", "If it bleeds, we can kill it");
+            }
 
-            this.deviceSources = new ObservableCollection<DeviceSourceViewModel>();
-            this.AddDeviceSource("iris");
-            this.AddDeviceSource("cam");
+            this.sources = new ObservableCollection<SourceViewModel>();
+            this.AddSource("iris");
+            this.AddSource("cam");
         }
 
-        public ObservableCollection<DeviceSourceViewModel> DeviceSources
+        public ObservableCollection<SourceViewModel> Sources
         {
-            get => this.deviceSources;
+            get => this.sources;
             set
             {
-                if (this.deviceSources == value)
+                if (this.sources == value)
                 {
                     return;
                 }
 
-                this.deviceSources = value;
+                this.sources = value;
             }
         }
 
@@ -50,31 +55,43 @@
             }
         }
 
-        public string SelectedDeviceSource
+        public string SelectedSource
         {
-            get => this.selectedDeviceSource;
+            get => this.selectedSource;
             set
             {
-                if (this.selectedDeviceSource == value)
+                if (this.selectedSource == value)
                 {
                     return;
                 }
 
-                this.selectedDeviceSource = value;
-                this.OnPropertyChanged(nameof(this.SelectedDeviceSource));
+                this.selectedSource = value;
+                this.OnPropertyChanged(nameof(this.SelectedSource));
             }
         }
 
-        private void AddDeviceSource(string name)
+        public ICommand DeleteAllNotifications => new RelayCommand<Action>(param =>
         {
             try
             {
-                this.DeviceSources.Add(new DeviceSourceViewModel
+                this.Notifications.Clear();
+            }
+            catch (Exception)
+            {
+                // TODO
+            }
+        });
+
+        private void AddSource(string name)
+        {
+            try
+            {
+                this.Sources.Add(new SourceViewModel
                 {
                     Name = name
                 });
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // TODO
             }
@@ -92,7 +109,7 @@
                     Notifications = this.Notifications
                 });
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // TODO
             }
