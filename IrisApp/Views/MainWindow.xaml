@@ -36,10 +36,10 @@
         <StackPanel VerticalAlignment="Top">
             <Grid Background="#673ab7" Height="30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0">
-                    <Button Command="{Binding MinimizeApp}" Style="{DynamicResource ResourceKey=MinimizeButtonStyle}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="White" ToolTip="Minimize">
+                    <Button Command="{Binding MinimizeAppCommand}" Style="{DynamicResource ResourceKey=MinimizeButtonStyle}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="White" ToolTip="Minimize">
                         <materialDesign:PackIcon Kind="WindowMinimize" Margin="0 7 0 0"/>
                     </Button>
-                    <Button Style="{DynamicResource ResourceKey=MaximizeRestoreButtonStyle}" Command="{Binding MaximizeOrRestoreApp}" Width="30" Height="30" Padding="0" Margin="0 0 0 0">
+                    <Button Style="{DynamicResource ResourceKey=MaximizeRestoreButtonStyle}" Command="{Binding MaximizeOrRestoreAppCommand}" Width="30" Height="30" Padding="0" Margin="0 0 0 0">
                         <materialDesign:PackIcon>
                             <materialDesign:PackIcon.Style>
                                 <Style TargetType="materialDesign:PackIcon">
@@ -81,10 +81,10 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </Grid.RenderTransform>
-                    <Button x:Name="OpenMenuButton" Visibility="{Binding OpenMenuButtonVisibility}" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#1b1b1b" Command="{Binding OpenMenu}">
+                    <Button x:Name="OpenMenuButton" Visibility="{Binding OpenMenuButtonVisibility}" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#1b1b1b" Command="{Binding OpenMenuCommand}">
                         <materialDesign:PackIcon Kind="Menu" Width="30" Height="30"/>
                     </Button>
-                    <Button x:Name="CloseMenuButton" Visibility="{Binding CloseMenuButtonVisibility}" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#1b1b1b" Command="{Binding CloseMenu}">
+                    <Button x:Name="CloseMenuButton" Visibility="{Binding CloseMenuButtonVisibility}" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#1b1b1b" Command="{Binding CloseMenuCommand}">
                         <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30"/>
                     </Button>
                 </Grid>

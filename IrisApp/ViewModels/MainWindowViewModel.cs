@@ -141,27 +141,27 @@ namespace IrisApp.ViewModels
             }
         }
 
-        public ICommand CloseMenu => new RelayCommand<Action>(param =>
+        public ICommand CloseMenuCommand => new RelayCommand<Action>(param =>
         {
             this.CloseMenuButtonVisibility = Visibility.Collapsed;
             this.OpenMenuButtonVisibility = Visibility.Visible;
         });
 
-        public ICommand OpenMenu => new RelayCommand<Action>(param =>
+        public ICommand OpenMenuCommand => new RelayCommand<Action>(param =>
         {
             this.CloseMenuButtonVisibility = Visibility.Visible;
             this.OpenMenuButtonVisibility = Visibility.Collapsed;
         });
 
-        public ICommand RestoreApp => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Normal; });
+        public ICommand RestoreAppCommand => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Normal; });
 
-        public ICommand MaximizeOrRestoreApp => new RelayCommand<Action>(param =>
+        public ICommand MaximizeOrRestoreAppCommand => new RelayCommand<Action>(param =>
         {
             this.CurrentWindowState = this.IsMaximized ? WindowState.Normal : WindowState.Maximized;
             this.IsMaximized = !this.IsMaximized;
         });
 
-        public ICommand MinimizeApp => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Minimized; });
+        public ICommand MinimizeAppCommand => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Minimized; });
 
         private void ChangeViewModel(IPageViewModel viewModel)
         {

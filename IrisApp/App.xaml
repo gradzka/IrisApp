@@ -16,7 +16,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="Views\Themes\SystemButtonTheme.xaml"/>
                 <ResourceDictionary Source="Views\Themes\DeleteForeverButtonTheme.xaml"/>
-                <ResourceDictionary Source="Views\Themes\FileEyeIconTheme.xaml"/>
                 <ResourceDictionary Source="Views\Themes\FaceRecognitionIconTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewmodelsHome:HomeViewModel}">

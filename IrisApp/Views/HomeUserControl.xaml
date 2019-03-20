@@ -16,127 +16,166 @@
     </UserControl.Resources>
     <Grid>
         <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="300"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox materialDesign:HintAssist.Hint="Select source" Margin="20 10 10 0" MinWidth="72" VerticalAlignment="Center" ItemsSource="{Binding Sources}" DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedSource}" SelectedValuePath="Name" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBox.SelectedItem>
-                                <Binding Path="SelectedValueOne" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
-                            </ComboBox.SelectedItem>
-                        </ComboBox>
-                        <Button Command="{Binding ScanSources}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Scan sources">
-                            <materialDesign:PackIcon Kind="Magnify" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
-                        </Button>
-                        <Button Command="{Binding UseSelectedSource}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Use selected source">
-                            <materialDesign:PackIcon Kind="Target" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
-                        </Button>
-                        <Button Command="{Binding SaveTemplateToDatabase}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Save template to database">
-                            <materialDesign:PackIcon Kind="DatabasePlus" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
-                        </Button>
-                        <Button Command="{Binding SaveImage}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Save image">
-                            <ContentControl Content="{StaticResource FileEyeIcon}" Margin="0 0 0 0"/>
-                        </Button>
-                        <Button Command="{Binding Identify}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Identify">
-                            <ContentControl Content="{StaticResource FaceRecognitionIcon}" Margin="0 0 0 0"/>
-                        </Button>
-                    </StackPanel>
+            <materialDesign:DialogHost CloseOnClickAway="True" IsOpen = "{Binding IsDialogOpen}">
+                <materialDesign:DialogHost.DialogContent>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="240"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="15"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Margin="0 0 0 0" Text="Do you want to create a new subject or add to existing one?" TextWrapping="Wrap"/>
+                                <RadioButton IsChecked="True" Grid.Row="1" Grid.Column="0" Style="{StaticResource MaterialDesignRadioButton}" Content="Create"/>
+                            <RadioButton Grid.Row="2" Grid.Column="0" Name="AddRadioButton" Style="{StaticResource MaterialDesignRadioButton}" Content="Add"/>
+                            <ComboBox Name="SubjectsCombobox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" IsEnabled="{Binding ElementName=AddRadioButton, Path=IsChecked}" Margin="0 -16 0 0" materialDesign:HintAssist.Hint="Select identifier" MinWidth="72" ItemsSource="{Binding Subjects}" DisplayMemberPath="SubjectID" SelectedValue="{Binding Path=SelectedSubject}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox.SelectedItem>
+                                    <Binding Path="SelectedValueOne" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
+                                </ComboBox.SelectedItem>
+                            </ComboBox>
+                            <Separator Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignDarkSeparator}"/>
+                        </Grid>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                            <Button Command="{Binding CloseDialogCommand}" Margin="0 0 8 0" Width="90" Style="{DynamicResource MaterialDesignRaisedButton}" Background="White" BorderBrush="White" materialDesign:ShadowAssist.ShadowDepth="Depth1" Foreground="#673ab7" ToolTip="Cancel">
+                                <TextBlock Margin="0 0 0 0" Foreground="#673ab7" VerticalAlignment="Center" Text="CANCEL"/>
+                            </Button>
+                            <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=SubjectsCombobox, Path=IsEnabled}" Margin="8 0 0 0" Width="90" Style="{DynamicResource MaterialDesignRaisedButton}" Background="White" BorderBrush="White" materialDesign:ShadowAssist.ShadowDepth="Depth1" Foreground="#673ab7" ToolTip="Save">
+                                <TextBlock Margin="0 0 0 0" Foreground="#673ab7" VerticalAlignment="Center" Text="SAVE"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:DialogHost.DialogContent>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Name="SourcesCombobox"  materialDesign:HintAssist.Hint="Select source" Margin="20 10 10 0" MinWidth="72" VerticalAlignment="Center" ItemsSource="{Binding Sources}" DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedSource}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox.SelectedItem>
+                                    <Binding Path="SelectedValueOne" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
+                                </ComboBox.SelectedItem>
+                            </ComboBox>
+                            <Button Command="{Binding ScanSourcesCommand}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Scan sources">
+                                <materialDesign:PackIcon Kind="Magnify" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
+                            </Button>
+                            <Button Command="{Binding UseSelectedSourceCommand}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Use selected source">
+                                <materialDesign:PackIcon Kind="Target" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
+                            </Button>
+                            <Button Command="{Binding ShowDialogCommand}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Save template to database">
+                                <materialDesign:PackIcon Kind="ContentSave" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
+                            </Button>
+                            <Button Command="{Binding IdentifyCommand}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Identify">
+                                <ContentControl Content="{StaticResource FaceRecognitionIcon}" Margin="0 0 0 0"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="1" Width="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 350}" Height="{Binding ActualHeight, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 90}">
+                        <GroupBox  Header="Preview" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 10 20 20" Height="Auto" Width="Auto">
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
+                                        <materialDesign:Badged HorizontalAlignment="Right" Margin="0 5 5 0" Badge="{materialDesign:PackIcon Kind=Eye}" BadgeBackground="White" BadgeForeground="#424242"  BadgeColorZoneMode="PrimaryDark">
+                                            <ToggleButton Content="L" IsChecked="{Binding DataContext.ChosenEye, ElementName=root, Converter={StaticResource CharToBoolConverter}}" Foreground="White" materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                                                <materialDesign:ToggleButtonAssist.OnContent>R</materialDesign:ToggleButtonAssist.OnContent>
+                                                <ToggleButton.Style>
+                                                    <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignActionLightToggleButton}">
+                                                        <Setter Property="ToolTip" Value=""></Setter>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsChecked" Value="True">
+                                                                <Setter Property="ToolTip" Value="Right eye chosen"></Setter>
+                                                            </Trigger>
+                                                            <Trigger Property="IsChecked" Value="False">
+                                                                <Setter Property="ToolTip" Value="Left eye chosen"></Setter>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ToggleButton.Style>
+                                            </ToggleButton>
+                                        </materialDesign:Badged>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+                        </GroupBox>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.RowSpan="2">
+                        <GroupBox  Header="Logs" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 20 20 20" Height="Auto">
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
+                                        <Button Command="{Binding DataContext.DeleteAllNotificationsCommand, ElementName=root}" Grid.Column="2" Width="30" Height="30" Padding="0" Margin="8 0 8 0" ToolTip="Delete All" HorizontalAlignment="Right"  materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                            <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>
+                                        </Button>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <ItemsControl ItemsSource="{Binding Notifications}" Grid.IsSharedSizeScope="True">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type viewmodelsHome:NotificationViewModel}">
+                                            <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}" materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ToggleButton Foreground="White" VerticalAlignment="Center" IsChecked="{Binding IsSelected}" Content="{Binding Code}" materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                                                        <ToggleButton.Style>
+                                                            <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignActionLightToggleButton}">
+                                                                <Setter Property="ToolTip" Value=""></Setter>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsChecked" Value="True">
+                                                                        <Setter Property="ToolTip" Value="Log read"></Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsChecked" Value="False">
+                                                                        <Setter Property="ToolTip" Value="{Binding Description}"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </ToggleButton.Style>
+                                                    </ToggleButton>
+                                                    <StackPanel Margin="8 0 0 0" Grid.Column="1">
+                                                        <TextBlock FontWeight="Bold" Text="{Binding Name}" ToolTip="{Binding Description}" />
+                                                        <TextBlock Text="{Binding Description}" ToolTip="{Binding Description}"/>
+                                                    </StackPanel>
+                                                    <Button Command="{Binding DeleteNotificationCommand}" Grid.Column="2" Width="30" Height="30" Style="{DynamicResource ResourceKey=DeleteForeverButtonStyle}" Padding="0" Margin="8 0 0 0" ToolTip="Delete">
+                                                        <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>
+                                                    </Button>
+                                                </Grid>
+                                            </Border>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </GroupBox>
+                    </Grid>
                 </Grid>
-                <Grid Grid.Column="0" Grid.Row="1" Width="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 350}" Height="{Binding ActualHeight, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 90}">
-                    <GroupBox  Header="Preview" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 10 20 20" Height="Auto" Width="Auto">
-                        <GroupBox.HeaderTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
-                                    <materialDesign:Badged HorizontalAlignment="Right" Margin="0 5 5 0" Badge="{materialDesign:PackIcon Kind=Eye}" BadgeBackground="White" BadgeForeground="#424242"  BadgeColorZoneMode="PrimaryDark">
-                                        <ToggleButton Content="L" IsChecked="{Binding DataContext.ChosenEye, ElementName=root, Converter={StaticResource CharToBoolConverter}}" Foreground="White" materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                                            <materialDesign:ToggleButtonAssist.OnContent>R</materialDesign:ToggleButtonAssist.OnContent>
-                                            <ToggleButton.Style>
-                                                <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignActionLightToggleButton}">
-                                                    <Setter Property="ToolTip" Value=""></Setter>
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsChecked" Value="True">
-                                                            <Setter Property="ToolTip" Value="Right eye chosen"></Setter>
-                                                        </Trigger>
-                                                        <Trigger Property="IsChecked" Value="False">
-                                                            <Setter Property="ToolTip" Value="Left eye chosen"></Setter>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </ToggleButton.Style>
-                                        </ToggleButton>
-                                    </materialDesign:Badged>
-                                </DockPanel>
-                            </DataTemplate>
-                        </GroupBox.HeaderTemplate>
-                    </GroupBox>
-                </Grid>
-                <Grid Grid.Column="1" Grid.RowSpan="2">
-                    <GroupBox  Header="Logs" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 20 20 20" Height="Auto">
-                        <GroupBox.HeaderTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
-                                    <Button Command="{Binding DataContext.DeleteAllNotifications, ElementName=root}" Grid.Column="2" Width="30" Height="30" Padding="0" Margin="8 0 8 0" ToolTip="Delete All" HorizontalAlignment="Right"  materialDesign:ShadowAssist.ShadowDepth="Depth1">
-                                        <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>
-                                    </Button>
-                                </DockPanel>
-                            </DataTemplate>
-                        </GroupBox.HeaderTemplate>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding Notifications}" Grid.IsSharedSizeScope="True">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type viewmodelsHome:NotificationViewModel}">
-                                        <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition SharedSizeGroup="Checkerz" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition SharedSizeGroup="Checkerz" />
-                                                </Grid.ColumnDefinitions>
-                                                <ToggleButton Foreground="White" VerticalAlignment="Center" IsChecked="{Binding IsSelected}" Content="{Binding Code}" materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                                                    <ToggleButton.Style>
-                                                        <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignActionLightToggleButton}">
-                                                            <Setter Property="ToolTip" Value=""></Setter>
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsChecked" Value="True">
-                                                                    <Setter Property="ToolTip" Value="Log read"></Setter>
-                                                                </Trigger>
-                                                                <Trigger Property="IsChecked" Value="False">
-                                                                    <Setter Property="ToolTip" Value="{Binding Description}"></Setter>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </ToggleButton.Style>
-                                                </ToggleButton>
-                                                <StackPanel Margin="8 0 0 0" Grid.Column="1">
-                                                    <TextBlock FontWeight="Bold" Text="{Binding Name}" ToolTip="{Binding Description}" />
-                                                    <TextBlock Text="{Binding Description}" ToolTip="{Binding Description}"/>
-                                                </StackPanel>
-                                                <Button Command="{Binding DeleteNotification}" Grid.Column="2" Width="30" Height="30" Style="{DynamicResource ResourceKey=DeleteForeverButtonStyle}" Padding="0" Margin="8 0 0 0" ToolTip="Delete">
-                                                    <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>
-                                                </Button>
-                                            </Grid>
-                                        </Border>
-                                        <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
-                                            </DataTrigger>
-                                        </DataTemplate.Triggers>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </GroupBox>
-                </Grid>
-            </Grid>
+            </materialDesign:DialogHost>
         </materialDesign:TransitioningContent>
     </Grid>
 </UserControl>

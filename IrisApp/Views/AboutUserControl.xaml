@@ -34,7 +34,7 @@
                             <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Padding="8">
                                 <DockPanel>
                                     <materialDesign:Badged DockPanel.Dock="Right" Margin="0 0 5 0" VerticalAlignment="Center" Badge="{materialDesign:PackIcon Star}" BadgeBackground="#fdd835"  BadgeColorZoneMode="PrimaryDark">
-                                        <Button Style="{DynamicResource MaterialDesignRaisedButton}" Background="White" BorderBrush="White" materialDesign:ShadowAssist.ShadowDepth="Depth1" Foreground="#673ab7" Command="{Binding OpenLink}" CommandParameter="0" ToolTip="https://github.com/gradzka/IrisApp">
+                                        <Button Style="{DynamicResource MaterialDesignRaisedButton}" Background="White" BorderBrush="White" materialDesign:ShadowAssist.ShadowDepth="Depth1" Foreground="#673ab7" Command="{Binding OpenLinkCommand}" CommandParameter="0" ToolTip="https://github.com/gradzka/IrisApp">
                                             <TextBlock Margin="5 0 0 0" Foreground="#673ab7" VerticalAlignment="Center" Text="Go to Repository"/>
                                         </Button>
                                     </materialDesign:Badged>
@@ -60,7 +60,7 @@
                             <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource MaterialDesignBodyLight}" Text="Do you want to visit the authors' repositories?"/>
                         </Grid>
                         <Grid Grid.Column="0" Grid.Row="1" Margin="10 10 8 10">
-                                <Button Style="{DynamicResource MaterialDesignRaisedButton}" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" Height="Auto" Command="{Binding OpenLink}" CommandParameter="1">
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" Height="Auto" Command="{Binding OpenLinkCommand}" CommandParameter="1">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="GithubCircle" Width="30" Height="30"/>
                                         <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="https://github.com/gradzka"/>
@@ -68,7 +68,7 @@
                                 </Button>
                             </Grid>
                             <Grid Grid.Column="1" Grid.Row="1" Margin="8 10 10 10">
-                                <Button Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" Height="Auto" Command="{Binding OpenLink}" CommandParameter="2">
+                            <Button Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" Height="Auto" Command="{Binding OpenLinkCommand}" CommandParameter="2">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="GithubCircle" Width="30" Height="30"/>
                                         <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="https://github.com/kazimierczak-robert"/>

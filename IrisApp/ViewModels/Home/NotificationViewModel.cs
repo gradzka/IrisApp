@@ -76,7 +76,7 @@ namespace IrisApp.ViewModels.Home
 
         public ObservableCollection<NotificationViewModel> Notifications { get; set; }
 
-        public ICommand DeleteNotification => new RelayCommand<Action>(param =>
+        public ICommand DeleteNotificationCommand => new RelayCommand<Action>(param =>
         {
             try
             {

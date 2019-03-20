@@ -6,7 +6,7 @@
 
     public class AboutViewModel : BaseViewModel, IPageViewModel
     {
-        public ICommand OpenLink => new RelayCommand<object>(param =>
+        public ICommand OpenLinkCommand => new RelayCommand<object>(param =>
         {
             try
             {
