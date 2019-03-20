@@ -73,7 +73,9 @@
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DatabaseViewModel.cs" />
+    <Compile Include="ViewModels\Home\DialogViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
+    <Compile Include="ViewModels\Home\HomeWithDialogViewModel.cs" />
     <Compile Include="ViewModels\Home\SourceViewModel.cs" />
     <Compile Include="ViewModels\Home\SubjectViewModel.cs" />
     <Compile Include="ViewModels\IPageViewModel.cs" />
@@ -86,12 +88,16 @@
     <Compile Include="Views\DatabaseUserControl.xaml.cs">
       <DependentUpon>DatabaseUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeUserControl.xaml.cs">
-      <DependentUpon>HomeUserControl.xaml</DependentUpon>
+    <Compile Include="Views\HomeWithDialogUserControl.xaml.cs">
+      <DependentUpon>HomeWithDialogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsUserControl.xaml.cs">
       <DependentUpon>SettingsUserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\HomeWithDialogUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,10 +115,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DatabaseUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\HomeUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

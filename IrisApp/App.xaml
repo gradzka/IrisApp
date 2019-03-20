@@ -4,8 +4,7 @@
              xmlns:views="clr-namespace:IrisApp.Views"
              xmlns:viewmodels="clr-namespace:IrisApp.ViewModels"
              xmlns:viewmodelsHome="clr-namespace:IrisApp.ViewModels.Home"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             x:Class="IrisApp.App"
+    x:Class="IrisApp.App"
 >
     <Application.Resources>
         <ResourceDictionary>
@@ -18,8 +17,8 @@
                 <ResourceDictionary Source="Views\Themes\DeleteForeverButtonTheme.xaml"/>
                 <ResourceDictionary Source="Views\Themes\FaceRecognitionIconTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type viewmodelsHome:HomeViewModel}">
-                <views:HomeUserControl />
+            <DataTemplate DataType="{x:Type viewmodelsHome:HomeWithDialogViewModel}">
+                <views:HomeWithDialogUserControl />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:DatabaseViewModel}">
                 <views:DatabaseUserControl />

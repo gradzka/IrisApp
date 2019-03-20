@@ -23,7 +23,7 @@ namespace IrisApp.ViewModels
         public MainWindowViewModel()
         {
             // Add available pages and set page
-            this.PageViewModels.Add(new HomeViewModel());
+            this.PageViewModels.Add(new HomeWithDialogViewModel());
             this.PageViewModels.Add(new DatabaseViewModel());
             this.PageViewModels.Add(new SettingsViewModel());
             this.PageViewModels.Add(new AboutViewModel());

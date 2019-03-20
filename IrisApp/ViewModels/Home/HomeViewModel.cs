@@ -9,11 +9,8 @@
     {
         private ObservableCollection<SourceViewModel> sources;
         private ObservableCollection<NotificationViewModel> notifications;
-        private ObservableCollection<SubjectViewModel> subjects;
         private char chosenEye = 'L';
-        private bool isDialogOpen;
         private SourceViewModel selectedSource;
-        private SubjectViewModel selectedSubject;
 
         public HomeViewModel()
         {
@@ -28,11 +25,6 @@
             this.sources = new ObservableCollection<SourceViewModel>();
             this.AddSource("iris");
             this.AddSource("cam");
-
-            this.subjects = new ObservableCollection<SubjectViewModel>();
-            this.AddSubject(new SubjectViewModel() { SubjectID = 0 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 1 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 2 });
         }
 
         public char ChosenEye
@@ -48,37 +40,6 @@
 
                 this.chosenEye = value;
                 this.OnPropertyChanged(nameof(this.ChosenEye));
-            }
-        }
-
-        public bool IsDialogOpen
-        {
-            get => this.isDialogOpen;
-
-            set
-            {
-                if (this.isDialogOpen == value)
-                {
-                    return;
-                }
-
-                this.isDialogOpen = value;
-                this.OnPropertyChanged(nameof(this.IsDialogOpen));
-            }
-        }
-
-        public SubjectViewModel SelectedSubject
-        {
-            get => this.selectedSubject;
-            set
-            {
-                if (this.selectedSubject == value)
-                {
-                    return;
-                }
-
-                this.selectedSubject = value;
-                this.OnPropertyChanged(nameof(this.SelectedSubject));
             }
         }
 
@@ -125,25 +86,6 @@
             }
         }
 
-        public ObservableCollection<SubjectViewModel> Subjects
-        {
-            get => this.subjects;
-            set
-            {
-                if (this.subjects == value)
-                {
-                    return;
-                }
-
-                this.subjects = value;
-            }
-        }
-
-        public ICommand CloseDialogCommand => new RelayCommand<Action>(param =>
-        {
-            this.IsDialogOpen = false;
-        });
-
         public ICommand DeleteAllNotificationsCommand => new RelayCommand<Action>(param =>
         {
             try
@@ -161,32 +103,9 @@
             // TODO
         });
 
-        public ICommand SaveCommand => new RelayCommand<bool>(subjectsComboboxIsEnabled =>
-        {
-            if (subjectsComboboxIsEnabled == true)
-            {
-                SubjectViewModel selectedSubject = this.SelectedSubject;
-
-                // existing subject
-            }
-            else
-            {
-                // create new subject
-            }
-
-            // TODO
-            this.IsDialogOpen = false;
-        });
-
         public ICommand ScanSourcesCommand => new RelayCommand<Action>(param =>
         {
             // TODO
-            this.IsDialogOpen = false;
-        });
-
-        public ICommand ShowDialogCommand => new RelayCommand<Action>(param =>
-        {
-            this.IsDialogOpen = true;
         });
 
         public ICommand UseSelectedSourceCommand => new RelayCommand<Action>(param =>
@@ -214,18 +133,6 @@
                 {
                     Name = name
                 });
-            }
-            catch (Exception)
-            {
-                // TODO
-            }
-        }
-
-        private void AddSubject(SubjectViewModel subject)
-        {
-            try
-            {
-                this.Subjects.Add(subject);
             }
             catch (Exception)
             {
