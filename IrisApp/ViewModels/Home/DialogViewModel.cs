@@ -18,6 +18,15 @@
             this.AddSubject(new SubjectViewModel() { SubjectID = 0 });
             this.AddSubject(new SubjectViewModel() { SubjectID = 1 });
             this.AddSubject(new SubjectViewModel() { SubjectID = 2 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 3 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 4 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 5 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 6 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 7 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 8 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 9 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 10 });
+            this.AddSubject(new SubjectViewModel() { SubjectID = 11 });
         }
 
         public bool IsDialogOpen

@@ -70,7 +70,7 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Column="0" Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
-                            <ComboBox Name="SourcesCombobox"  materialDesign:HintAssist.Hint="Select source" Margin="20 10 10 0" MinWidth="72" VerticalAlignment="Center" ItemsSource="{Binding HomeViewModel.Sources}" DisplayMemberPath="Name" SelectedValue="{Binding Path=HomeViewModel.SelectedSource}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox Name="SourcesCombobox"  materialDesign:HintAssist.Hint="Select source" IsTextSearchEnabled="True" Margin="20 10 10 0" MinWidth="72" VerticalAlignment="Center" ItemsSource="{Binding HomeViewModel.Sources}" DisplayMemberPath="Name" SelectedValue="{Binding Path=HomeViewModel.SelectedSource}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                                 <ComboBox.SelectedItem>
                                     <Binding Path="SelectedValueOne" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
                                 </ComboBox.SelectedItem>
@@ -89,13 +89,13 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <Grid Grid.Column="0" Grid.Row="1" Width="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 350}" Height="{Binding ActualHeight, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 90}">
+                    <Grid Grid.Column="0" Grid.Row="1"  Width="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 360}" Height="{Binding ActualHeight, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 90}">
                         <GroupBox  Header="Preview" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 10 20 20" Height="Auto" Width="Auto">
                             <GroupBox.HeaderTemplate>
                                 <DataTemplate>
                                     <DockPanel>
                                         <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
-                                        <materialDesign:Badged HorizontalAlignment="Right" Margin="0 5 5 0" Badge="{materialDesign:PackIcon Kind=Eye}" BadgeBackground="White" BadgeForeground="#424242"  BadgeColorZoneMode="PrimaryDark">
+                                        <materialDesign:Badged HorizontalAlignment="Right" Margin="0 5 5 0" Badge="{materialDesign:PackIcon Kind=EyeOutline}" BadgeBackground="White" BadgeForeground="#424242"  BadgeColorZoneMode="PrimaryDark">
                                             <ToggleButton Content="L" IsChecked="{Binding DataContext.HomeViewModel.ChosenEye, ElementName=root, Converter={StaticResource CharToBoolConverter}}" Foreground="White" materialDesign:ShadowAssist.ShadowDepth="Depth2">
                                                 <materialDesign:ToggleButtonAssist.OnContent>R</materialDesign:ToggleButtonAssist.OnContent>
                                                 <ToggleButton.Style>
@@ -158,7 +158,7 @@
                                                     </ToggleButton>
                                                     <StackPanel Margin="8 0 0 0" Grid.Column="1">
                                                         <TextBlock FontWeight="Bold" Text="{Binding Name}" ToolTip="{Binding Description}" />
-                                                        <TextBlock Text="{Binding Description}" ToolTip="{Binding Description}"/>
+                                                        <TextBlock Text="{Binding Description}" ToolTip="{Binding Description}" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                     <Button Command="{Binding DeleteNotificationCommand}" Grid.Column="2" Width="30" Height="30" Style="{DynamicResource ResourceKey=DeleteForeverButtonStyle}" Padding="0" Margin="8 0 0 0" ToolTip="Delete">
                                                         <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>

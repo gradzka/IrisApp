@@ -72,7 +72,7 @@
     <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\DatabaseViewModel.cs" />
+    <Compile Include="ViewModels\Database\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\Home\DialogViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeWithDialogViewModel.cs" />

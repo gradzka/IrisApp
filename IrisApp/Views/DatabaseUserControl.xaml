@@ -8,21 +8,18 @@
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              Height="auto" Width="auto">
-    <Grid>
+    <Grid Width="auto">
         <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                <StackPanel>
-                    <TextBlock Text="Text1" FontFamily="Cooper Black" Foreground="#FFC00000"/>
-                    <StackPanel Margin="10">
-                        <TextBlock Text="R$ 28" FontSize="50" FontFamily="Cooper Black" Foreground="#FFC00000"/>
-                        <TextBlock Text="Text1" FontSize="25" FontFamily="Champagne &amp; Limousines" FontWeight="Bold" Margin="5"/>
-                        <TextBlock Text="Text1 text1 text1" FontSize="20" FontFamily="Champagne &amp; Limousines" Margin="5"/>
-                        <TextBlock FontSize="18" Width="250" FontFamily="Champagne &amp; Limousines" Margin="5" TextWrapping="Wrap"/>
-                    </StackPanel>
-                    <Button FontFamily="Champagne &amp; Limousines" Content="Pedir Agora" FontSize="18" Margin="25"/>
-                </StackPanel>
-                <Image Margin="10" Width="200" Height="200" Source="" Stretch="UniformToFill"/>
-            </StackPanel>
+            <GroupBox  Header="Database content" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 10 20 20" Height="Auto" Width="Auto">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
+                        </DockPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <DataGrid Margin="0 8 0 0" ItemsSource="{Binding Subjects}" CanUserSortColumns="True" CanUserAddRows="False" />
+            </GroupBox>
         </materialDesign:TransitioningContent>
     </Grid>
 </UserControl>

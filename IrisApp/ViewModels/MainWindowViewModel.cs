@@ -8,6 +8,7 @@ namespace IrisApp.ViewModels
     using System.Windows;
     using System.Windows.Input;
     using IrisApp.Utils;
+    using IrisApp.ViewModels.Database;
     using IrisApp.ViewModels.Home;
 
     public class MainWindowViewModel : BaseViewModel
