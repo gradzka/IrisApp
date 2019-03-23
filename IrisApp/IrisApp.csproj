@@ -66,6 +66,7 @@
     <Compile Include="Converters\CharToBoolConverter.cs" />
     <Compile Include="Converters\GridColumnSizeConverter.cs" />
     <Compile Include="Converters\SelectedPageBrushConverter.cs" />
+    <Compile Include="Models\Settings\FARComboboxModel.cs" />
     <Compile Include="Utils\EventArgs.cs" />
     <Compile Include="Utils\EventRaiser.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -81,7 +82,9 @@
     <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\EnrollmentViewModel.cs" />
+    <Compile Include="ViewModels\Settings\MatchingViewModel.cs" />
     <Compile Include="Views\AboutUserControl.xaml.cs">
       <DependentUpon>AboutUserControl.xaml</DependentUpon>
     </Compile>
@@ -166,7 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

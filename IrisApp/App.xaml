@@ -4,6 +4,7 @@
              xmlns:views="clr-namespace:IrisApp.Views"
              xmlns:viewmodels="clr-namespace:IrisApp.ViewModels"
              xmlns:viewmodelsHome="clr-namespace:IrisApp.ViewModels.Home"
+             xmlns:viewmodelsSettings="clr-namespace:IrisApp.ViewModels.Settings"
              xmlns:viewmodelsDatabase="clr-namespace:IrisApp.ViewModels.Database"
     x:Class="IrisApp.App"
 >
@@ -24,7 +25,7 @@
             <DataTemplate DataType="{x:Type viewmodelsDatabase:DatabaseViewModel}">
                 <views:DatabaseUserControl />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+            <DataTemplate DataType="{x:Type viewmodelsSettings:SettingsViewModel}">
                 <views:SettingsUserControl />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AboutViewModel}">

@@ -10,6 +10,7 @@ namespace IrisApp.ViewModels
     using IrisApp.Utils;
     using IrisApp.ViewModels.Database;
     using IrisApp.ViewModels.Home;
+    using IrisApp.ViewModels.Settings;
 
     public class MainWindowViewModel : BaseViewModel
     {

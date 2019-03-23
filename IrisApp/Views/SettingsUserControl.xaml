@@ -4,10 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:IrisApp.Views"
              xmlns:converters="clr-namespace:IrisApp.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="800">
 
     <UserControl.Resources>
         <converters:GridColumnSizeConverter x:Key="GridColumnSizeConverter"/>
@@ -17,7 +16,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -27,7 +26,7 @@
                     <materialDesign:Card Width="Auto" Margin="10" Height="Auto">
                         <Grid >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="400" />
+                                <RowDefinition Height="430" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="90" />
@@ -61,25 +60,25 @@
                                     <TextBlock Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="16 10 0 0" Text="Inner boundary radius"/>
                                     <!-- Inner boundary radius from -->
                                     <TextBlock Grid.Row="1" HorizontalAlignment="Right" Foreground="{DynamicResource MaterialDesignBodyLight}" Text="from:" Margin="0 8 0 0"/>
-                                    <Slider Name ="InnerFromSlider" Grid.Row="1" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="10" Maximum="255"  Value="20" Width="Auto" Margin="8 8 8 0" />
+                                    <Slider Name ="InnerFromSlider" Grid.Row="1" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="10" Maximum="255"  Value="{Binding EnrollmentViewModel.InnerBoundaryRadiusFrom,Mode=TwoWay}" Width="Auto" Margin="8 8 8 0" />
                                     <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Foreground="#673ab7" Text="{Binding ElementName=InnerFromSlider, Path=Value}" Margin="0 8 0 0"/>
                                     <!-- Inner boundary radius to -->
                                     <TextBlock Grid.Row="2" HorizontalAlignment="Right" Foreground="{DynamicResource MaterialDesignBodyLight}" Text="to:" Margin="0 8 0 0"/>
-                                    <Slider Name ="InnerToSlider" Grid.Row="2" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="10" Maximum="255"  Value="80" Width="Auto" Margin="8 8 8 0" />
+                                    <Slider Name ="InnerToSlider" Grid.Row="2" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="10" Maximum="255"  Value="{Binding EnrollmentViewModel.InnerBoundaryRadiusTo,Mode=TwoWay}" Width="Auto" Margin="8 8 8 0" />
                                     <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Foreground="#673ab7" Text="{Binding ElementName=InnerToSlider, Path=Value}" Margin="0 8 0 0"/>
                                     <!-- Outer boundary radius -->
                                     <TextBlock Grid.ColumnSpan="2" Grid.Row="3" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="16 16 0 0" Text="Outer boundary radius"/>
                                     <!-- Outer boundary radius from -->
                                     <TextBlock Grid.Row="4" HorizontalAlignment="Right" Foreground="{DynamicResource MaterialDesignBodyLight}" Text="from:" Margin="0 8 0 0"/>
-                                    <Slider Name ="OuterFromSlider" Grid.Row="4" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="10" Maximum="255"  Value="70" Width="Auto" Margin="8 8 8 0" />
+                                    <Slider Name ="OuterFromSlider" Grid.Row="4" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="10" Maximum="255"  Value="{Binding EnrollmentViewModel.OuterBoundaryRadiusFrom,Mode=TwoWay}" Width="Auto" Margin="8 8 8 0" />
                                     <TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Foreground="#673ab7" Text="{Binding ElementName=OuterFromSlider, Path=Value}" Margin="0 8 0 0"/>
                                     <!-- Outer boundary radius to -->
                                     <TextBlock Grid.Row="5" HorizontalAlignment="Right" Foreground="{DynamicResource MaterialDesignBodyLight}" Text="to:" Margin="0 8 0 0"/>
-                                    <Slider Name ="OuterToSlider" Grid.Row="5" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="10" Maximum="255"  Value="170" Width="Auto" Margin="8 8 8 0" />
+                                    <Slider Name ="OuterToSlider" Grid.Row="5" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="10" Maximum="255"  Value="{Binding EnrollmentViewModel.OuterBoundaryRadiusTo, Mode=TwoWay}" Width="Auto" Margin="8 8 8 0" />
                                     <TextBlock Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" Foreground="#673ab7" Text="{Binding ElementName=OuterToSlider, Path=Value}" Margin="0 8 0 0"/>
                                     <!-- Quality threshold -->
                                     <TextBlock Grid.ColumnSpan="2" Grid.Row="6" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="16 16 0 0" Text="Quality threshold"/>
-                                    <Slider Name ="ThresholdSlider" Grid.Row="7" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"  TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="0" Maximum="100"  Value="10" Width="Auto" Margin="8 24 8 0" />
+                                    <Slider Name ="ThresholdSlider" Grid.Row="7" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"  TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="0" Maximum="100"  Value="{Binding EnrollmentViewModel.QualityThreshold, Mode=TwoWay}" Width="Auto" Margin="8 24 8 0" />
                                     <TextBlock Grid.Row="7" Grid.Column="2" HorizontalAlignment="Left" Foreground="#673ab7" Text="{Binding ElementName=ThresholdSlider, Path=Value}" Margin="0 24 0 0"/>
                                 </Grid>
                             </StackPanel>
@@ -90,7 +89,7 @@
                     <materialDesign:Card Width="Auto" Margin="10" Height="Auto">
                         <Grid >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="400" />
+                                <RowDefinition Height="430" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="90" />
@@ -125,36 +124,29 @@
                                     </Grid.RowDefinitions>
                                     <!-- FAR -->
                                     <TextBlock Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="16 10 0 0" Text="FAR"/>
-                                    <ComboBox Margin="0 4 0 0" Grid.Row="1" Grid.Column="1" IsTextSearchEnabled="True" Width="Auto" MinWidth="72" VerticalAlignment="Center">
-                                        <ComboBoxItem IsSelected="True">0.1%</ComboBoxItem>
-                                        <ComboBoxItem>0.01%</ComboBoxItem>
-                                        <ComboBoxItem>0.001%</ComboBoxItem>
-                                        <ComboBoxItem>0.0001%</ComboBoxItem>
-                                    </ComboBox>
+                                    <ComboBox ItemsSource="{Binding MatchingViewModel.FAR}" DisplayMemberPath="Value" SelectedValue="{Binding Path=MatchingViewModel.SelectedFAR}" Margin="0 4 0 0" Grid.Row="1" Grid.Column="1" IsTextSearchEnabled="True" Width="Auto" MinWidth="72" VerticalAlignment="Center"/>
                                     <!-- Maximal rotation -->
                                     <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="16 35 0 0" Text="Maximal rotation"/>
-                                    <Slider Name="MaximalRotationSlider"  Grid.Row="3" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="0" Maximum="180"  Value="15" Width="Auto" Margin="8 22 8 0" />
+                                    <Slider Name="MaximalRotationSlider"  Grid.Row="3" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="0" Maximum="180"  Value="{Binding MatchingViewModel.MaximalRotation}" Width="Auto" Margin="8 22 8 0" />
                                     <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Foreground="#673ab7" Text="{Binding ElementName=MaximalRotationSlider, Path=Value}" Margin="0 22 0 0"/>
                                     <!-- Matching speed -->
                                     <TextBlock Grid.ColumnSpan="2" Grid.Row="4" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="16 30 0 0" Text="Matching speed"/>
-                                    <ComboBox Margin="0 4 0 0" Grid.Row="5" Grid.Column="1" IsTextSearchEnabled="True" Width="Auto" MinWidth="72" VerticalAlignment="Center">
-                                        <ComboBoxItem IsSelected="True">Low</ComboBoxItem>
-                                        <ComboBoxItem>Medium</ComboBoxItem>
-                                        <ComboBoxItem>Height</ComboBoxItem>
-                                    </ComboBox>
+                                    <ComboBox ItemsSource="{Binding MatchingViewModel.MatchingSpeed}" SelectedValue="{Binding Path=MatchingViewModel.SelectedMatchingSpeed}" Margin="0 4 0 0" Grid.Row="5" Grid.Column="1" IsTextSearchEnabled="True" Width="Auto" MinWidth="72" VerticalAlignment="Center"/>
                                     <!-- Maximal result count -->
-                                    <TextBlock Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="16 35 0 0" Text="Maximal rotation"/>
-                                    <Slider Name="MaximalResultCountSlider"  Grid.Row="7" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="1" Maximum="100"  Value="10" Width="Auto" Margin="8 22 8 0" />
+                                    <TextBlock Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="16 35 0 0" Text="Maximal result count"/>
+                                    <Slider Name="MaximalResultCountSlider"  Grid.Row="7" Grid.Column="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" TickPlacement="None" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="1" Maximum="100"  Value="{Binding MatchingViewModel.MaximalResultCount}" Width="Auto" Margin="8 22 8 0" />
                                     <TextBlock Grid.Row="7" Grid.Column="2" HorizontalAlignment="Left" Foreground="#673ab7" Text="{Binding ElementName=MaximalResultCountSlider, Path=Value}" Margin="0 22 0 0"/>
+                                    <CheckBox IsChecked="{Binding MatchingViewModel.IsFirstReadOnlyChecked}" Grid.Row="8" Grid.Column="1" Style="{StaticResource MaterialDesignCheckBox}" Margin="6 10 0 0"> First result only </CheckBox>
                                 </Grid>
                             </StackPanel>
                         </Grid>
                     </materialDesign:Card>
                 </Grid>
                 <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="5">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button HorizontalAlignment="Right" Width="90" Content="RESET" Margin="0 0 8 0" Style="{DynamicResource MaterialDesignRaisedButton}" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" ToolTip="Reset changes"/>
-                        <Button HorizontalAlignment="Right" Width="90" Content="SAVE" Margin="8 0 0 0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" ToolTip="Save changes"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="#FFF3F3F3" Margin="5 5 5 5">
+                        <Button Command = "{Binding ResetCommand}" HorizontalAlignment="Right" Width="90" Content="RESET" Margin="8 8 8 8" Style="{DynamicResource MaterialDesignRaisedButton}" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" ToolTip="Restore to factory settings"/>
+                        <Button Command = "{Binding UndoCommand}" HorizontalAlignment="Right" Width="90" Content="UNDO" Margin="0 8 0 8" Style="{DynamicResource MaterialDesignRaisedButton}" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" ToolTip="Undo changes"/>
+                        <Button Command = "{Binding SaveCommand}" HorizontalAlignment="Right" Width="90" Content="SAVE" Margin="8 8 8 8" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#673ab7" ToolTip="Save changes"/>
                     </StackPanel>
                 </Grid>
             </Grid>
