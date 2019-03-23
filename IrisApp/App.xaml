@@ -19,17 +19,17 @@
                 <ResourceDictionary Source="Views\Themes\DeleteForeverButtonTheme.xaml"/>
                 <ResourceDictionary Source="Views\Themes\FaceRecognitionIconTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type viewmodelsHome:HomeWithDialogViewModel}">
-                <views:HomeWithDialogUserControl />
+            <DataTemplate DataType="{x:Type viewmodelsHome:HomeViewModel}">
+                <views:HomeView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodelsDatabase:DatabaseViewModel}">
-                <views:DatabaseUserControl />
+                <views:DatabaseView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodelsSettings:SettingsViewModel}">
-                <views:SettingsUserControl />
+                <views:SettingsView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AboutViewModel}">
-                <views:AboutUserControl />
+                <views:AboutView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

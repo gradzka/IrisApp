@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for AboutUserControl.xaml
+    /// Interaction logic for SettingsView.xaml
     /// </summary>
-    public partial class AboutUserControl : UserControl
+    public partial class SettingsView : UserControl
     {
-        public AboutUserControl()
+        public SettingsView()
         {
             this.InitializeComponent();
         }

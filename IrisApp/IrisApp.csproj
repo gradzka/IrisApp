@@ -66,6 +66,9 @@
     <Compile Include="Converters\CharToBoolConverter.cs" />
     <Compile Include="Converters\GridColumnSizeConverter.cs" />
     <Compile Include="Converters\SelectedPageBrushConverter.cs" />
+    <Compile Include="Models\Home\LogModel.cs" />
+    <Compile Include="Models\Home\SourceModel.cs" />
+    <Compile Include="Models\Home\SubjectModel.cs" />
     <Compile Include="Models\Settings\FARComboboxModel.cs" />
     <Compile Include="Utils\EventArgs.cs" />
     <Compile Include="Utils\EventRaiser.cs" />
@@ -76,28 +79,26 @@
     <Compile Include="ViewModels\Database\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\Home\DialogViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
-    <Compile Include="ViewModels\Home\HomeWithDialogViewModel.cs" />
-    <Compile Include="ViewModels\Home\SourceViewModel.cs" />
-    <Compile Include="ViewModels\Home\SubjectViewModel.cs" />
+    <Compile Include="ViewModels\Home\LogsViewModel.cs" />
+    <Compile Include="ViewModels\Home\PreviewViewModel.cs" />
     <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\Home\NotificationViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\EnrollmentViewModel.cs" />
     <Compile Include="ViewModels\Settings\MatchingViewModel.cs" />
-    <Compile Include="Views\AboutUserControl.xaml.cs">
-      <DependentUpon>AboutUserControl.xaml</DependentUpon>
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DatabaseUserControl.xaml.cs">
-      <DependentUpon>DatabaseUserControl.xaml</DependentUpon>
+    <Compile Include="Views\DatabaseView.xaml.cs">
+      <DependentUpon>DatabaseView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeWithDialogUserControl.xaml.cs">
-      <DependentUpon>HomeWithDialogUserControl.xaml</DependentUpon>
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsUserControl.xaml.cs">
-      <DependentUpon>SettingsUserControl.xaml</DependentUpon>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\HomeWithDialogUserControl.xaml">
+    <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,15 +114,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\AboutUserControl.xaml">
+    <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DatabaseUserControl.xaml">
+    <Page Include="Views\DatabaseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsUserControl.xaml">
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,47 +3,31 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
+    using IrisApp.Models.Home;
     using IrisApp.Utils;
 
     public class HomeViewModel : BaseViewModel, IPageViewModel
     {
-        private ObservableCollection<SourceViewModel> sources;
-        private ObservableCollection<NotificationViewModel> notifications;
-        private char chosenEye = 'L';
-        private SourceViewModel selectedSource;
+        private ObservableCollection<SourceModel> sources;
+        private SourceModel selectedSource;
 
         public HomeViewModel()
         {
-            this.Notifications = new ObservableCollection<NotificationViewModel>();
-            for (int i = 0; i < 5; i++)
-            {
-                this.AddNotification(new NotificationViewModel() { Code = 'M', Name = "Material Design", Description = "Material Design", Notifications = this.Notifications });
-                this.AddNotification(new NotificationViewModel() { Code = 'D', Name = "Dragablz", Description = "Dragablz Tab Control", Notifications = this.Notifications });
-                this.AddNotification(new NotificationViewModel() { Code = 'P', Name = "Predator", Description = "If it bleeds, we can kill it", Notifications = this.Notifications });
-            }
-
-            this.sources = new ObservableCollection<SourceViewModel>();
+            this.DialogViewModel = new DialogViewModel();
+            this.LogsViewModel = new LogsViewModel();
+            this.PreviewViewModel = new PreviewViewModel();
+            this.sources = new ObservableCollection<SourceModel>();
             this.AddSource("iris");
             this.AddSource("cam");
         }
 
-        public char ChosenEye
-        {
-            get => this.chosenEye;
+        public DialogViewModel DialogViewModel { get; set; }
 
-            set
-            {
-                if (this.chosenEye == value)
-                {
-                    return;
-                }
+        public LogsViewModel LogsViewModel { get; set; }
 
-                this.chosenEye = value;
-                this.OnPropertyChanged(nameof(this.ChosenEye));
-            }
-        }
+        public PreviewViewModel PreviewViewModel { get; set; }
 
-        public SourceViewModel SelectedSource
+        public SourceModel SelectedSource
         {
             get => this.selectedSource;
             set
@@ -58,21 +42,7 @@
             }
         }
 
-        public ObservableCollection<NotificationViewModel> Notifications
-        {
-            get => this.notifications;
-            set
-            {
-                if (this.notifications == value)
-                {
-                    return;
-                }
-
-                this.notifications = value;
-            }
-        }
-
-        public ObservableCollection<SourceViewModel> Sources
+        public ObservableCollection<SourceModel> Sources
         {
             get => this.sources;
             set
@@ -85,18 +55,6 @@
                 this.sources = value;
             }
         }
-
-        public ICommand DeleteAllNotificationsCommand => new RelayCommand<Action>(param =>
-        {
-            try
-            {
-                this.Notifications.Clear();
-            }
-            catch (Exception)
-            {
-                // TODO
-            }
-        });
 
         public ICommand IdentifyCommand => new RelayCommand<Action>(param =>
         {
@@ -113,23 +71,11 @@
             // TODO
         });
 
-        private void AddNotification(NotificationViewModel notification)
-        {
-            try
-            {
-                this.Notifications.Add(notification);
-            }
-            catch (Exception)
-            {
-                // TODO
-            }
-        }
-
         private void AddSource(string name)
         {
             try
             {
-                this.Sources.Add(new SourceViewModel
+                this.Sources.Add(new SourceModel
                 {
                     Name = name
                 });

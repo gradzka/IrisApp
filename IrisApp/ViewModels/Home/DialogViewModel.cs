@@ -3,30 +3,28 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
+    using IrisApp.Models.Home;
     using IrisApp.Utils;
-    using IrisApp.ViewModels.Home;
 
     public class DialogViewModel : BaseViewModel, IPageViewModel
     {
         private bool isDialogOpen;
-        private SubjectViewModel selectedSubject;
-        private ObservableCollection<SubjectViewModel> subjects;
+        private SubjectModel selectedSubject;
+        private ObservableCollection<SubjectModel> subjects;
 
         public DialogViewModel()
         {
-            this.subjects = new ObservableCollection<SubjectViewModel>();
-            this.AddSubject(new SubjectViewModel() { SubjectID = 0 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 1 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 2 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 3 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 4 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 5 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 6 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 7 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 8 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 9 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 10 });
-            this.AddSubject(new SubjectViewModel() { SubjectID = 11 });
+            this.subjects = new ObservableCollection<SubjectModel>();
+            this.AddSubject(new SubjectModel() { SubjectID = 0 });
+            this.AddSubject(new SubjectModel() { SubjectID = 1 });
+            this.AddSubject(new SubjectModel() { SubjectID = 2 });
+            this.AddSubject(new SubjectModel() { SubjectID = 3 });
+            this.AddSubject(new SubjectModel() { SubjectID = 4 });
+            this.AddSubject(new SubjectModel() { SubjectID = 5 });
+            this.AddSubject(new SubjectModel() { SubjectID = 6 });
+            this.AddSubject(new SubjectModel() { SubjectID = 7 });
+            this.AddSubject(new SubjectModel() { SubjectID = 8 });
+            this.AddSubject(new SubjectModel() { SubjectID = 9 });
         }
 
         public bool IsDialogOpen
@@ -49,7 +47,7 @@
         {
             if (subjectsComboboxIsEnabled == true)
             {
-                SubjectViewModel selectedSubject = this.SelectedSubject;
+                SubjectModel selectedSubject = this.SelectedSubject;
 
                 // existing subject
             }
@@ -62,7 +60,7 @@
             this.IsDialogOpen = false;
         });
 
-        public SubjectViewModel SelectedSubject
+        public SubjectModel SelectedSubject
         {
             get => this.selectedSubject;
             set
@@ -77,7 +75,7 @@
             }
         }
 
-        public ObservableCollection<SubjectViewModel> Subjects
+        public ObservableCollection<SubjectModel> Subjects
         {
             get => this.subjects;
             set
@@ -101,7 +99,7 @@
             this.IsDialogOpen = true;
         });
 
-        private void AddSubject(SubjectViewModel subject)
+        private void AddSubject(SubjectModel subject)
         {
             try
             {

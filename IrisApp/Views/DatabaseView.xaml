@@ -1,5 +1,5 @@
 ﻿<!--Based on: https://github.com/Abel13/Pizzaria1-->
-    <UserControl x:Class="IrisApp.Views.DatabaseUserControl"
+    <UserControl x:Class="IrisApp.Views.DatabaseView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

@@ -14,9 +14,10 @@ namespace IrisApp.ViewModels
 
     public class MainWindowViewModel : BaseViewModel
     {
+
+        private Visibility closeMenuButtonVisibility = Visibility.Collapsed;
         private IPageViewModel currentPageViewModel;
         private WindowState currentWindowState;
-        private Visibility closeMenuButtonVisibility = Visibility.Collapsed;
         private bool isMaximized = false;
         private Visibility openMenuButtonVisibility = Visibility.Visible;
         private List<IPageViewModel> pageViewModels;
@@ -25,7 +26,7 @@ namespace IrisApp.ViewModels
         public MainWindowViewModel()
         {
             // Add available pages and set page
-            this.PageViewModels.Add(new HomeWithDialogViewModel());
+            this.PageViewModels.Add(new HomeViewModel());
             this.PageViewModels.Add(new DatabaseViewModel());
             this.PageViewModels.Add(new SettingsViewModel());
             this.PageViewModels.Add(new AboutViewModel());
@@ -149,14 +150,6 @@ namespace IrisApp.ViewModels
             this.OpenMenuButtonVisibility = Visibility.Visible;
         });
 
-        public ICommand OpenMenuCommand => new RelayCommand<Action>(param =>
-        {
-            this.CloseMenuButtonVisibility = Visibility.Visible;
-            this.OpenMenuButtonVisibility = Visibility.Collapsed;
-        });
-
-        public ICommand RestoreAppCommand => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Normal; });
-
         public ICommand MaximizeOrRestoreAppCommand => new RelayCommand<Action>(param =>
         {
             this.CurrentWindowState = this.IsMaximized ? WindowState.Normal : WindowState.Maximized;
@@ -164,6 +157,14 @@ namespace IrisApp.ViewModels
         });
 
         public ICommand MinimizeAppCommand => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Minimized; });
+
+        public ICommand OpenMenuCommand => new RelayCommand<Action>(param =>
+        {
+            this.CloseMenuButtonVisibility = Visibility.Visible;
+            this.OpenMenuButtonVisibility = Visibility.Collapsed;
+        });
+
+        public ICommand RestoreAppCommand => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Normal; });
 
         private void ChangeViewModel(IPageViewModel viewModel)
         {

@@ -136,17 +136,19 @@
         {
             try
             {
+                this.FAR.Clear();
                 this.FAR.Add(new FARComboboxModel { Key = 0.1m, Value = "0.1%" });
                 this.FAR.Add(new FARComboboxModel { Key = 0.01m, Value = "0.01%" });
                 this.FAR.Add(new FARComboboxModel { Key = 0.001m, Value = "0.001%" });
                 this.FAR.Add(new FARComboboxModel { Key = 0.0001m, Value = "0.0001%" });
                 this.IsFirstReadOnlyChecked = false;
+                this.MatchingSpeed.Clear();
                 this.MatchingSpeed.Add("Low");
                 this.MatchingSpeed.Add("Medium");
                 this.MatchingSpeed.Add("High");
                 this.MaximalResultCount = 10;
                 this.MaximalRotation = 15;
-                this.SelectedFAR = this.FAR[0];
+                this.SelectedFAR = this.FAR[1];
                 this.SelectedMatchingSpeed = this.MatchingSpeed[0];
             }
             catch (Exception)

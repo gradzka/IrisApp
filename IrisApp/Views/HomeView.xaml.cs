@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for HomeWithDialogUserControl.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class HomeWithDialogUserControl : UserControl
+    public partial class HomeView : UserControl
     {
-        public HomeWithDialogUserControl()
+        public HomeView()
         {
             this.InitializeComponent();
         }

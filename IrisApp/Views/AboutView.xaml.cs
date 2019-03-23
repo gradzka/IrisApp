@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for DatabaseUserControl.xaml
+    /// Interaction logic for AboutView.xaml
     /// </summary>
-    public partial class DatabaseUserControl : UserControl
+    public partial class AboutView : UserControl
     {
-        public DatabaseUserControl()
+        public AboutView()
         {
             this.InitializeComponent();
         }
