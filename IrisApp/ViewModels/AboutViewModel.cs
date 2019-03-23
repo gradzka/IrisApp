@@ -10,15 +10,15 @@
         {
             try
             {
-                if ((string)param == "0")
+                if (((string)param).Equals("0", StringComparison.Ordinal))
                 {
                     System.Diagnostics.Process.Start("https://github.com/gradzka/IrisApp");
                 }
-                else if ((string)param == "1")
+                else if (((string)param).Equals("1", StringComparison.Ordinal))
                 {
                     System.Diagnostics.Process.Start("https://github.com/gradzka");
                 }
-                else if ((string)param == "2")
+                else if (((string)param).Equals("2", StringComparison.Ordinal))
                 {
                     System.Diagnostics.Process.Start("https://github.com/kazimierczak-robert");
                 }

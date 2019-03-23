@@ -166,7 +166,7 @@
                                                 </Grid>
                                             </Border>
                                             <DataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding LogsViewModel.IsSelected}" Value="True">
+                                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
                                                     <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
                                                 </DataTrigger>
                                             </DataTemplate.Triggers>
