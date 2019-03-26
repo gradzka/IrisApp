@@ -1,6 +1,9 @@
 ﻿namespace IrisApp
 {
+    using System.Collections.ObjectModel;
     using System.Windows;
+    using IrisApp.Models.Home;
+    using IrisApp.Models.IrisProcessor;
     using IrisApp.ViewModels;
     using IrisApp.Views;
 
@@ -14,7 +17,7 @@
             base.OnStartup(e);
 
             MainWindow app = new MainWindow();
-            MainWindowViewModel context = new MainWindowViewModel();
+            MainWindowViewModel context = new MainWindowViewModel(new VeriEyeProcessorModel(), new ObservableCollection<LogModel>());
             app.DataContext = context;
             app.Show();
         }

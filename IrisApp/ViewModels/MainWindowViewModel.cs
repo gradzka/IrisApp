@@ -4,9 +4,12 @@ namespace IrisApp.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
+    using IrisApp.Models.Home;
+    using IrisApp.Models.IrisProcessor;
     using IrisApp.Utils;
     using IrisApp.ViewModels.Database;
     using IrisApp.ViewModels.Home;
@@ -14,7 +17,6 @@ namespace IrisApp.ViewModels
 
     public class MainWindowViewModel : BaseViewModel
     {
-
         private Visibility closeMenuButtonVisibility = Visibility.Collapsed;
         private IPageViewModel currentPageViewModel;
         private WindowState currentWindowState;
@@ -23,13 +25,14 @@ namespace IrisApp.ViewModels
         private List<IPageViewModel> pageViewModels;
         private int selectedPageIndex = 0;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IrisProcessorModel processor, ObservableCollection<LogModel> logs)
+            : base(processor, logs)
         {
             // Add available pages and set page
-            this.PageViewModels.Add(new HomeViewModel());
-            this.PageViewModels.Add(new DatabaseViewModel());
-            this.PageViewModels.Add(new SettingsViewModel());
-            this.PageViewModels.Add(new AboutViewModel());
+            this.PageViewModels.Add(new HomeViewModel(processor, logs));
+            this.PageViewModels.Add(new DatabaseViewModel(processor, logs));
+            this.PageViewModels.Add(new SettingsViewModel(processor, logs));
+            this.PageViewModels.Add(new AboutViewModel(processor, logs));
 
             this.CurrentPageViewModel = this.PageViewModels[0];
         }

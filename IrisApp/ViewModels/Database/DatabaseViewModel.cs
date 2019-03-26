@@ -2,31 +2,23 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
     using System.Windows.Input;
     using IrisApp.Models.Home;
+    using IrisApp.Models.IrisProcessor;
     using IrisApp.Utils;
 
     public class DatabaseViewModel : BaseViewModel, IPageViewModel
     {
         private ObservableCollection<SubjectModel> subjects;
 
-        public DatabaseViewModel()
+        public DatabaseViewModel(IrisProcessorModel processor, ObservableCollection<LogModel> logs)
+            : base(processor, logs)
         {
-            this.Subjects = new ObservableCollection<SubjectModel>()
-            {
-                new SubjectModel() { SubjectID = 1, Path = "C:\\Users\\User\\Documents\\Samples\\1", SamplesCount = 0 },
-                new SubjectModel() { SubjectID = 2, Path = "C:\\Users\\User\\Documents\\Samples\\2", SamplesCount = 1 },
-                new SubjectModel() { SubjectID = 3, Path = "C:\\Users\\User\\Documents\\Samples\\3", SamplesCount = 2 },
-                new SubjectModel() { SubjectID = 4, Path = "C:\\Users\\User\\Documents\\Samples\\4", SamplesCount = 4 },
-                new SubjectModel() { SubjectID = 5, Path = "C:\\Users\\User\\Documents\\Samples\\5", SamplesCount = 1 },
-                new SubjectModel() { SubjectID = 6, Path = "C:\\Users\\User\\Documents\\Samples\\6", SamplesCount = 2 },
-                new SubjectModel() { SubjectID = 7, Path = "C:\\Users\\User\\Documents\\Samples\\7", SamplesCount = 0 },
-                new SubjectModel() { SubjectID = 8, Path = "C:\\Users\\User\\Documents\\Samples\\8", SamplesCount = 4 },
-                new SubjectModel() { SubjectID = 9, Path = "C:\\Users\\User\\Documents\\Samples\\9", SamplesCount = 4 },
-                new SubjectModel() { SubjectID = 10, Path = "C:\\Users\\User\\Documents\\Samples\\10", SamplesCount = 0 },
-                new SubjectModel() { SubjectID = 11, Path = "C:\\Users\\User\\Documents\\Samples\\11", SamplesCount = 1 },
-                new SubjectModel() { SubjectID = 12, Path = "C:\\Users\\User\\Documents\\Samples\\12", SamplesCount = 2 }
-            };
+            this.Subjects = new ObservableCollection<SubjectModel>();
+            this.GetSubjectsFromDatabaseAsync();
         }
 
         public ObservableCollection<SubjectModel> Subjects
@@ -47,13 +39,23 @@
         {
             try
             {
-                this.Subjects.Clear();
-
-                // TODO -> delete from DB, srsly?
+                foreach (int subjectID in this.Processor.GetAllSubjectIDs())
+                {
+                    if (this.Processor.RemoveSubject(subjectID))
+                    {
+                        SubjectModel subject = this.Subjects.FirstOrDefault(x => x.SubjectID == subjectID);
+                        this.Subjects.Remove(subject);
+                        Directory.Delete(subject.Path);
+                    }
+                }
             }
             catch (Exception)
             {
-                // TODO
+                this.GetSubjectsFromDatabaseAsync();
+            }
+            finally
+            {
+                this.GetLogsFromProcessor();
             }
         });
 
@@ -61,25 +63,57 @@
         {
             try
             {
-                this.Subjects.Remove(param);
-
-                // TODO, from DB too
+                if (this.Processor.RemoveSubject(param.SubjectID))
+                {
+                    this.Subjects.Remove(param);
+                    Directory.Delete(param.Path, true);
+                }
             }
             catch (Exception)
             {
-                // TODO
+               // TODO
+            }
+            finally
+            {
+                this.GetLogsFromProcessor();
             }
         });
 
         public ICommand GoToFolderCommand => new RelayCommand<string>(param =>
         {
-            // TODO
-            // if path exists open dialog
+            if (Directory.Exists(param))
+            {
+                Process.Start(param);
+            }
+            else
+            {
+                this.Logs.Add(new LogModel() { Code = 'E', Description = "Folder doesn't exists", Name = "Database" });
+            }
         });
 
         public ICommand RefreshCommand => new RelayCommand<Action>(param =>
         {
-            // TODO
+            this.GetSubjectsFromDatabaseAsync();
         });
+
+        public async void GetSubjectsFromDatabaseAsync()
+        {
+            try
+            {
+                this.Subjects.Clear();
+                foreach (SubjectModel subject in await this.Processor.GetAllSubjectsAsync())
+                {
+                    this.Subjects.Add(subject);
+                }
+            }
+            catch (Exception)
+            {
+                this.Subjects.Clear();
+            }
+            finally
+            {
+                this.GetLogsFromProcessor();
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class FARComboboxModel
     {
-        public decimal Key { get; set; }
+        public double Key { get; set; }
 
         public string Value { get; set; }
     }

@@ -1,24 +1,27 @@
 ﻿namespace IrisApp.ViewModels.Home
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using IrisApp.Models.Home;
+    using IrisApp.Models.IrisProcessor;
     using IrisApp.Utils;
 
     public class HomeViewModel : BaseViewModel, IPageViewModel
     {
         private ObservableCollection<SourceModel> sources;
         private SourceModel selectedSource;
+        private object windowsFormsHost;
 
-        public HomeViewModel()
+        public HomeViewModel(IrisProcessorModel processor, ObservableCollection<LogModel> logs)
+            : base(processor, logs)
         {
-            this.DialogViewModel = new DialogViewModel();
-            this.LogsViewModel = new LogsViewModel();
-            this.PreviewViewModel = new PreviewViewModel();
+            this.DialogViewModel = new DialogViewModel(processor, logs);
+            this.LogsViewModel = new LogsViewModel(processor, logs);
+            this.PreviewViewModel = new PreviewViewModel(processor, logs);
             this.sources = new ObservableCollection<SourceModel>();
-            this.AddSource("iris");
-            this.AddSource("cam");
+            this.CollectSources();
         }
 
         public DialogViewModel DialogViewModel { get; set; }
@@ -56,33 +59,90 @@
             }
         }
 
-        public ICommand IdentifyCommand => new RelayCommand<Action>(param =>
+        public object WindowsFormsHost
         {
-            // TODO
+            get => this.windowsFormsHost;
+            set
+            {
+                if (this.windowsFormsHost == value)
+                {
+                    return;
+                }
+
+                this.windowsFormsHost = value;
+                this.OnPropertyChanged(nameof(this.WindowsFormsHost));
+            }
+        }
+
+        public ICommand IdentifyCommand => new RelayCommand<Action>(async param =>
+        {
+            await this.Processor.IdentifyAsync();
+            this.GetLogsFromProcessor();
         });
 
         public ICommand ScanSourcesCommand => new RelayCommand<Action>(param =>
         {
-            // TODO
+            this.Sources.Clear();
+            this.SelectedSource = null;
+            this.CollectSources();
         });
 
-        public ICommand UseSelectedSourceCommand => new RelayCommand<Action>(param =>
+        public ICommand UseSelectedSourceCommand => new RelayCommand<Action>(async param =>
         {
-            // TODO
+            if (this.SelectedSource == null)
+            {
+                this.Logs.Add(new LogModel() { Code = 'E', Description = "No source selected", Name = "Source" });
+            }
+
+            // File
+            else if (this.SelectedSource == this.Sources[0])
+            {
+                Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
+                {
+                    Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*"
+                };
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    await this.Processor.LoadFromImageAsync(openFileDialog.FileName);
+                    this.WindowsFormsHost = this.Processor.GetPreviewControl();
+                    this.GetLogsFromProcessor();
+                }
+            }
+
+            // Device
+            else
+            {
+                this.WindowsFormsHost = this.Processor.GetPreviewControl(true);
+                await this.Processor.LoadFromScannerAsync(this.SelectedSource.Device, this.PreviewViewModel.ChosenEye);
+                this.WindowsFormsHost = this.Processor.GetPreviewControl();
+                this.GetLogsFromProcessor();
+            }
         });
 
-        private void AddSource(string name)
+        private void CollectSources()
         {
             try
             {
-                this.Sources.Add(new SourceModel
+                if (this.Processor.IsProcessorReady)
                 {
-                    Name = name
-                });
+                    this.Sources.Add(new SourceModel() { Name = "File", Device = null });
+                    List<SourceModel> devices = this.Processor.GetDevices();
+                    if (devices != null)
+                    {
+                        foreach (SourceModel device in devices)
+                        {
+                            this.Sources.Add(device);
+                        }
+                    }
+                }
             }
             catch (Exception)
             {
-                // TODO
+                this.Sources.Clear();
+            }
+            finally
+            {
+                this.GetLogsFromProcessor();
             }
         }
     }

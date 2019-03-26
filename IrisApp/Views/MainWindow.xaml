@@ -6,9 +6,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:converters="clr-namespace:IrisApp.Converters"
-        mc:Ignorable="d" Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="{Binding CurrentWindowState, Mode=TwoWay}" AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
+        mc:Ignorable="d" Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="{Binding CurrentWindowState, Mode=TwoWay}" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
     <Window.Resources>
         <converters:SelectedPageBrushConverter x:Key="SelectedPageBrushConverter"/>
         <Storyboard x:Key="OpenMenu">

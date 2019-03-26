@@ -1,5 +1,9 @@
 ﻿namespace IrisApp.ViewModels.Settings
 {
+    using System.Collections.ObjectModel;
+    using IrisApp.Models.Home;
+    using IrisApp.Models.IrisProcessor;
+
     public class EnrollmentViewModel : BaseViewModel, IPageViewModel
     {
         private byte innerBoundaryRadiusFrom;
@@ -8,7 +12,8 @@
         private byte outerBoundaryRadiusTo;
         private byte qualityThreshold;
 
-        public EnrollmentViewModel()
+        public EnrollmentViewModel(IrisProcessorModel processor = null, ObservableCollection<LogModel> logs = null)
+            : base(processor, logs)
         {
             this.SetFactorySettings();
         }
@@ -95,6 +100,15 @@
             this.OuterBoundaryRadiusFrom = 70;
             this.OuterBoundaryRadiusTo = 170;
             this.QualityThreshold = 10;
+        }
+
+        public void SetValues(EnrollmentViewModel enrollmentViewModel)
+        {
+            this.InnerBoundaryRadiusFrom = enrollmentViewModel.InnerBoundaryRadiusFrom;
+            this.InnerBoundaryRadiusTo = enrollmentViewModel.InnerBoundaryRadiusTo;
+            this.OuterBoundaryRadiusFrom = enrollmentViewModel.OuterBoundaryRadiusFrom;
+            this.OuterBoundaryRadiusTo = enrollmentViewModel.OuterBoundaryRadiusTo;
+            this.QualityThreshold = enrollmentViewModel.QualityThreshold;
         }
     }
 }

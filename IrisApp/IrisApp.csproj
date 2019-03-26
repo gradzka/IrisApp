@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,8 +45,36 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="Neurotec">
+      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Biometrics">
+      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Biometrics.Client">
+      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Biometrics.Gui">
+      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Devices">
+      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Devices.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Gui">
+      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Licensing">
+      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Neurotec.Media">
+      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -61,6 +90,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -73,6 +103,9 @@
     <Compile Include="Models\Home\LogModel.cs" />
     <Compile Include="Models\Home\SourceModel.cs" />
     <Compile Include="Models\Home\SubjectModel.cs" />
+    <Compile Include="Models\IrisProcessor\IrisProcessorModel.cs" />
+    <Compile Include="Models\IrisProcessor\VeriEyeProcessorModel.cs" />
+    <Compile Include="Models\SampleModel.cs" />
     <Compile Include="Models\Settings\FARComboboxModel.cs" />
     <Compile Include="Utils\EventArgs.cs" />
     <Compile Include="Utils\EventRaiser.cs" />
