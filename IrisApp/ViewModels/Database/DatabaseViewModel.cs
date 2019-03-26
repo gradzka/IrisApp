@@ -45,7 +45,7 @@
                     {
                         SubjectModel subject = this.Subjects.FirstOrDefault(x => x.SubjectID == subjectID);
                         this.Subjects.Remove(subject);
-                        Directory.Delete(subject.Path);
+                        Directory.Delete(subject.Path, true);
                     }
                 }
             }
@@ -87,7 +87,7 @@
             }
             else
             {
-                this.Logs.Add(new LogModel() { Code = 'E', Description = "Folder doesn't exists", Name = "Database" });
+                this.Logs.Insert(0, new LogModel() { Code = 'E', Description = "Folder doesn't exists", Name = "Database" });
             }
         });
 

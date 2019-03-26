@@ -218,6 +218,12 @@
                     return false;
                 }
 
+                if (!File.Exists("Irises.ndf"))
+                {
+                    this.AddLog(false, "Irises.ndf not found", "Irises.ndf");
+                    return false;
+                }
+
                 this.subject = new NSubject();
 
                 this.iris = new NIris()
@@ -254,6 +260,12 @@
                 if (!this.IsProcessorReady)
                 {
                     this.AddLog(false, "No license obtained", "License");
+                    return false;
+                }
+
+                if (!File.Exists("Irises.ndf"))
+                {
+                    this.AddLog(false, "Irises.ndf not found", "Irises.ndf");
                     return false;
                 }
 
@@ -392,11 +404,6 @@
                 else
                 {
                     NSubject subj = (NSubject)await this.GetSubjectAsync(subjectID);
-                    if (subj == null || subj.Irises.Count == 4)
-                    {
-                        this.AddLog(false, "Enroll failed (too much probes)", "Save template");
-                        return null;
-                    }
 
                     NIris newIris = this.subject.Irises[0];
                     this.subject.Irises.Remove(newIris);

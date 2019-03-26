@@ -91,7 +91,7 @@
         {
             if (this.SelectedSource == null)
             {
-                this.Logs.Add(new LogModel() { Code = 'E', Description = "No source selected", Name = "Source" });
+                this.Logs.Insert(0, new LogModel() { Code = 'E', Description = "No source selected", Name = "Source" });
             }
 
             // File
