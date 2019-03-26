@@ -16,6 +16,7 @@
         <converters:GridColumnSizeConverter x:Key="GridColumnSizeConverter"/>
     </UserControl.Resources>
     <Grid Width="auto">
+
         <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
             <Grid  Width="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 70}"  Height="{Binding ActualHeight, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 30}">
                 <Grid.RowDefinitions>
@@ -31,11 +32,12 @@
                                 <DockPanel>
                                     <TextBlock Margin="0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
                                     <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0">
-                                        <Button Command="{Binding DataContext.RefreshCommand, ElementName=root}" Width="30" Height="30" Padding="0" Margin="8 0 8 0" ToolTip="Refresh" HorizontalAlignment="Right"  materialDesign:ShadowAssist.ShadowDepth="Depth1">
-                                            <materialDesign:PackIcon Kind="Refresh" Margin="0 0 0 0" Width="25" Height="25"/>
-                                        </Button>
-                                        <Button Command="{Binding DataContext.DeleteAllCommand, ElementName=root}" Width="30" Height="30" Padding="0" Margin="0" ToolTip="Delete All" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                        <CheckBox Name="DeleteSelectedCheckbox" IsThreeState="False" Margin="0 0 8 0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" Content="Delete selected"/>
+                                        <Button Command="{Binding DataContext.DeleteAllCommand, ElementName=root}" CommandParameter="{Binding ElementName=DeleteSelectedCheckbox, Path=IsChecked}" Style="{DynamicResource ResourceKey=DeleteAllButtonStyle}">
                                             <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>
+                                        </Button>
+                                        <Button Command="{Binding DataContext.RefreshCommand, ElementName=root}" Width="30" Height="30" Padding="0" Margin="8 0 0 0" ToolTip="Refresh" HorizontalAlignment="Right" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                            <materialDesign:PackIcon Kind="Refresh" Margin="0 0 0 0" Width="25" Height="25"/>
                                         </Button>
                                     </StackPanel>
                                 </DockPanel>

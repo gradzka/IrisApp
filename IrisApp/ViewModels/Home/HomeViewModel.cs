@@ -12,23 +12,22 @@
     {
         private ObservableCollection<SourceModel> sources;
         private SourceModel selectedSource;
-        private object windowsFormsHost;
 
         public HomeViewModel(IrisProcessorModel processor, ObservableCollection<LogModel> logs)
             : base(processor, logs)
         {
-            this.DialogViewModel = new DialogViewModel(processor, logs);
+            this.SaveDialogViewModel = new SaveDialogViewModel(processor, logs);
+            this.EyeDialogViewModel = new EyeDialogViewModel(processor, logs);
             this.LogsViewModel = new LogsViewModel(processor, logs);
-            this.PreviewViewModel = new PreviewViewModel(processor, logs);
-            this.sources = new ObservableCollection<SourceModel>();
+            this.Sources = new ObservableCollection<SourceModel>();
             this.CollectSources();
         }
 
-        public DialogViewModel DialogViewModel { get; set; }
+        public SaveDialogViewModel SaveDialogViewModel { get; set; }
+
+        public EyeDialogViewModel EyeDialogViewModel { get; set; }
 
         public LogsViewModel LogsViewModel { get; set; }
-
-        public PreviewViewModel PreviewViewModel { get; set; }
 
         public SourceModel SelectedSource
         {
@@ -59,21 +58,6 @@
             }
         }
 
-        public object WindowsFormsHost
-        {
-            get => this.windowsFormsHost;
-            set
-            {
-                if (this.windowsFormsHost == value)
-                {
-                    return;
-                }
-
-                this.windowsFormsHost = value;
-                this.OnPropertyChanged(nameof(this.WindowsFormsHost));
-            }
-        }
-
         public ICommand IdentifyCommand => new RelayCommand<Action>(async param =>
         {
             await this.Processor.IdentifyAsync();
@@ -85,38 +69,6 @@
             this.Sources.Clear();
             this.SelectedSource = null;
             this.CollectSources();
-        });
-
-        public ICommand UseSelectedSourceCommand => new RelayCommand<Action>(async param =>
-        {
-            if (this.SelectedSource == null)
-            {
-                this.Logs.Insert(0, new LogModel() { Code = 'E', Description = "No source selected", Name = "Source" });
-            }
-
-            // File
-            else if (this.SelectedSource == this.Sources[0])
-            {
-                Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
-                {
-                    Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*"
-                };
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    await this.Processor.LoadFromImageAsync(openFileDialog.FileName);
-                    this.WindowsFormsHost = this.Processor.GetPreviewControl();
-                    this.GetLogsFromProcessor();
-                }
-            }
-
-            // Device
-            else
-            {
-                this.WindowsFormsHost = this.Processor.GetPreviewControl(true);
-                await this.Processor.LoadFromScannerAsync(this.SelectedSource.Device, this.PreviewViewModel.ChosenEye);
-                this.WindowsFormsHost = this.Processor.GetPreviewControl();
-                this.GetLogsFromProcessor();
-            }
         });
 
         private void CollectSources()

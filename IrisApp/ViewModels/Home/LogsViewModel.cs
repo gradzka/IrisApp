@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows.Input;
+    using IrisApp.Infrastructure;
     using IrisApp.Models.Home;
     using IrisApp.Models.IrisProcessor;
     using IrisApp.Utils;
@@ -14,11 +16,18 @@
         {
         }
 
-        public ICommand DeleteAllLogsCommand => new RelayCommand<Action>(param =>
+        public ICommand DeleteAllLogsCommand => new RelayCommand<bool>(deleteSelectedIsChecked =>
         {
             try
             {
-                this.Logs.Clear();
+                if (deleteSelectedIsChecked)
+                {
+                    this.Logs.RemoveAll(x => x.IsSelected);
+                }
+                else
+                {
+                    this.Logs.Clear();
+                }
             }
             catch (Exception)
             {

@@ -33,7 +33,6 @@ namespace IrisApp.ViewModels
             this.PageViewModels.Add(new DatabaseViewModel(processor, logs));
             this.PageViewModels.Add(new SettingsViewModel(processor, logs));
             this.PageViewModels.Add(new AboutViewModel(processor, logs));
-
             this.CurrentPageViewModel = this.PageViewModels[0];
         }
 

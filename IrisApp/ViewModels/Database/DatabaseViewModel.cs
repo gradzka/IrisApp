@@ -35,7 +35,7 @@
             }
         }
 
-        public ICommand DeleteAllCommand => new RelayCommand<Action>(param =>
+        public ICommand DeleteAllCommand => new RelayCommand<bool>(deleteSelectedIsChecked =>
         {
             try
             {
@@ -44,8 +44,11 @@
                     if (this.Processor.RemoveSubject(subjectID))
                     {
                         SubjectModel subject = this.Subjects.FirstOrDefault(x => x.SubjectID == subjectID);
-                        this.Subjects.Remove(subject);
-                        Directory.Delete(subject.Path, true);
+                        if ((deleteSelectedIsChecked && subject.IsSelected) || !deleteSelectedIsChecked)
+                        {
+                            this.Subjects.Remove(subject);
+                            Directory.Delete(subject.Path, true);
+                        }
                     }
                 }
             }

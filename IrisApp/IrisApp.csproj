@@ -46,28 +46,28 @@
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="Neurotec">
-      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.dll</HintPath>
+      <HintPath>..\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.dll</HintPath>
     </Reference>
     <Reference Include="Neurotec.Biometrics">
-      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.dll</HintPath>
+      <HintPath>..\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.dll</HintPath>
     </Reference>
     <Reference Include="Neurotec.Biometrics.Client">
-      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.Client.dll</HintPath>
+      <HintPath>..\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.Client.dll</HintPath>
     </Reference>
     <Reference Include="Neurotec.Biometrics.Gui">
-      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.Gui.dll</HintPath>
+      <HintPath>..\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Biometrics.Gui.dll</HintPath>
     </Reference>
     <Reference Include="Neurotec.Devices">
-      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Devices.dll</HintPath>
+      <HintPath>..\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Devices.dll</HintPath>
     </Reference>
     <Reference Include="Neurotec.Gui">
-      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Gui.dll</HintPath>
+      <HintPath>..\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Gui.dll</HintPath>
     </Reference>
     <Reference Include="Neurotec.Licensing">
-      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Licensing.dll</HintPath>
+      <HintPath>..\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Licensing.dll</HintPath>
     </Reference>
     <Reference Include="Neurotec.Media">
-      <HintPath>..\..\..\..\Desktop\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Media.dll</HintPath>
+      <HintPath>..\Neurotechnology\Neurotec_Biometric_10_0_SDK_2018-09-14\Neurotec_Biometric_10_0_SDK\Bin\dotNET\Neurotec.Media.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -100,6 +100,8 @@
     <Compile Include="Converters\CharToBoolConverter.cs" />
     <Compile Include="Converters\GridColumnSizeConverter.cs" />
     <Compile Include="Converters\SelectedPageBrushConverter.cs" />
+    <Compile Include="Infrastructure\ObservableCollectionExtensions.cs" />
+    <Compile Include="Models\Home\EyeModel.cs" />
     <Compile Include="Models\Home\LogModel.cs" />
     <Compile Include="Models\Home\SourceModel.cs" />
     <Compile Include="Models\Home\SubjectModel.cs" />
@@ -115,9 +117,10 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Database\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\Home\DialogViewModel.cs" />
+    <Compile Include="ViewModels\Home\SaveDialogViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="ViewModels\Home\LogsViewModel.cs" />
-    <Compile Include="ViewModels\Home\PreviewViewModel.cs" />
+    <Compile Include="ViewModels\Home\EyeDialogViewModel.cs" />
     <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
@@ -129,13 +132,27 @@
     <Compile Include="Views\DatabaseView.xaml.cs">
       <DependentUpon>DatabaseView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeView.xaml.cs">
+    <Compile Include="Views\Home\EyeDialogView.xaml.cs">
+      <DependentUpon>EyeDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\SaveDialogView.xaml.cs">
+      <DependentUpon>SaveDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\HomeView.xaml">
+    <Page Include="Views\Home\EyeDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\SaveDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Themes\DeleteAllButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

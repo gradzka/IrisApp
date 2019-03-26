@@ -1,4 +1,4 @@
-﻿namespace IrisApp.Views
+﻿namespace IrisApp.Views.Home
 {
     using System.Windows.Controls;
 
