@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using System.Windows.Forms.Integration;
     using IrisApp.Models.Home;
+    using IrisApp.Utils;
     using IrisApp.ViewModels.Settings;
     using Neurotec.Biometrics;
     using Neurotec.Biometrics.Client;
@@ -39,7 +40,7 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return null;
                 }
 
@@ -59,7 +60,7 @@
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during obtaining subjectIs", "Database");
+                this.ResultLogs.Add(LogSingleton.Instance.SubjectsUnavailable);
                 return null;
             }
         }
@@ -70,7 +71,7 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return null;
                 }
 
@@ -80,7 +81,7 @@
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during obtaining subjectIDs", "Database");
+                this.ResultLogs.Add(LogSingleton.Instance.SubjectIDsUnavailable);
                 return null;
             }
         }
@@ -91,7 +92,7 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return null;
                 }
 
@@ -104,12 +105,14 @@
                     devices.Add(new SourceModel() { Name = device.DisplayName, Device = device });
                 }
 
-                this.AddLog(true, devices.Count + " devices found", "Source");
+                LogModel foundDevices = devices.Count == 1 ? LogSingleton.Instance.FoundDevice : LogSingleton.Instance.FoundDevices;
+                foundDevices.Description = $"{devices.Count} {foundDevices.Description}";
+                this.ResultLogs.Add(foundDevices);
                 return devices;
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during getting devices", "License");
+                this.ResultLogs.Add(LogSingleton.Instance.DevicesUnavailable);
                 return null;
             }
         }
@@ -120,7 +123,7 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return false;
                 }
 
@@ -133,7 +136,7 @@
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during getting preview control", "Preview");
+                this.ResultLogs.Add(LogSingleton.Instance.PreviewUnavailable);
                 return null;
             }
         }
@@ -144,7 +147,7 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return null;
                 }
 
@@ -163,13 +166,12 @@
                 matchingViewModel.SelectedMatchingSpeed = matchingViewModel.MatchingSpeed.FirstOrDefault(x => x.Equals(this.biometricClient.IrisesMatchingSpeed.ToString(), StringComparison.Ordinal));
                 matchingViewModel.MaximalResultCount = this.biometricClient.MatchingMaximalResultCount;
                 matchingViewModel.IsFirstReadOnlyChecked = this.biometricClient.MatchingFirstResultOnly;
-                this.AddLog(true, "Getting settings successful", "Settings");
 
                 return new Tuple<EnrollmentViewModel, MatchingViewModel>(enrollmentViewModel, matchingViewModel);
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error getting settings", "Settings");
+                this.ResultLogs.Add(LogSingleton.Instance.SettingsRestored);
                 return null;
             }
         }
@@ -180,13 +182,13 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return;
                 }
 
                 if (this.subject == null)
                 {
-                    this.AddLog(false, "No image to identify", "Identify");
+                    this.ResultLogs.Add(LogSingleton.Instance.UseSelectedSource);
                     return;
                 }
 
@@ -194,16 +196,20 @@
                 NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                 if (performedTask.Status != NBiometricStatus.Ok)
                 {
-                    this.AddLog(false, "Identification failed (status = " + performedTask.Status + ")", "Identify");
+                    LogModel identificationFailed = LogSingleton.Instance.IdentificationFailed;
+                    identificationFailed.Description = $"{identificationFailed.Description} (status = {performedTask.Status})";
+                    this.ResultLogs.Add(identificationFailed);
                     return;
                 }
 
-                this.AddLog(true, "Identification successful\n" + this.subject.MatchingResults[0].Id + " " + this.subject.MatchingResults[0].Score.ToString(), "Identify");
+                LogModel identificationResult = LogSingleton.Instance.IdentificationResult;
+                identificationResult.Description = $"{identificationResult.Description}\n{this.subject.MatchingResults[0].Id} {this.subject.MatchingResults[0].Score.ToString()}";
+                this.ResultLogs.Add(identificationResult);
                 return;
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during identification", "Identify");
+                this.ResultLogs.Add(LogSingleton.Instance.IdentificationFailed);
                 return;
             }
         }
@@ -214,13 +220,13 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return false;
                 }
 
                 if (!File.Exists("Irises.ndf"))
                 {
-                    this.AddLog(false, "Irises.ndf not found", "Irises.ndf");
+                    this.ResultLogs.Add(LogSingleton.Instance.IrisesNDF);
                     return false;
                 }
 
@@ -245,7 +251,6 @@
                 }
                 else
                 {
-                    this.AddLog(false, "Incorrect eye parameter received", "Capture/Extraction");
                     return false;
                 }
 
@@ -256,17 +261,19 @@
                 NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                 if (performedTask.Status != NBiometricStatus.Ok)
                 {
-                    this.AddLog(false, "Extraction failed (status = " + performedTask.Status + ")", "Extraction");
+                    LogModel extractionFailed = LogSingleton.Instance.ExtractionFailed;
+                    extractionFailed.Description = $"{extractionFailed.Description} (status = {performedTask.Status})";
+                    this.ResultLogs.Add(extractionFailed);
                     return false;
                 }
 
-                this.AddLog(true, "Extraction successful", "Extraction");
+                this.ResultLogs.Add(LogSingleton.Instance.ExtractionResult);
                 var a = this.subject.GetTemplate();
                 return true;
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during loading from image", "Extraction");
+                this.ResultLogs.Add(LogSingleton.Instance.ExtractionFailed);
                 return false;
             }
         }
@@ -277,20 +284,20 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return false;
                 }
 
                 if (!File.Exists("Irises.ndf"))
                 {
-                    this.AddLog(false, "Irises.ndf not found", "Irises.ndf");
+                    this.ResultLogs.Add(LogSingleton.Instance.IrisesNDF);
                     return false;
                 }
 
                 this.subject = new NSubject();
                 if (this.iris == null)
                 {
-                    this.AddLog(false, "Preview control not loaded", "Preview");
+                    this.ResultLogs.Add(LogSingleton.Instance.PreviewUnavailable);
                     return false;
                 }
 
@@ -310,7 +317,6 @@
                 }
                 else
                 {
-                    this.AddLog(false, "Incorrect eye parameter received", "Capture/Extraction");
                     return false;
                 }
 
@@ -321,16 +327,18 @@
                 NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                 if (performedTask.Status != NBiometricStatus.Ok)
                 {
-                    this.AddLog(false, "Capturing or extraction failed (status = " + performedTask.Status + ")", "Capture/Extraction");
+                    LogModel captureExtractionFailed = LogSingleton.Instance.CaptureExtractionFailed;
+                    captureExtractionFailed.Description = $"{captureExtractionFailed.Description} (status = {performedTask.Status})";
+                    this.ResultLogs.Add(captureExtractionFailed);
                     return false;
                 }
 
-                this.AddLog(true, "Capturing and extraction successful", "Capture/Extraction");
+                this.ResultLogs.Add(LogSingleton.Instance.CaptureExtractionResult);
                 return true;
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during loading from scanner", "Capture/Extracion");
+                this.ResultLogs.Add(LogSingleton.Instance.CaptureExtractionFailed);
                 return false;
             }
         }
@@ -341,23 +349,23 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return false;
                 }
 
                 var status = this.biometricClient.Delete(subjectID.ToString());
                 if (status != NBiometricStatus.Ok)
                 {
-                    this.AddLog(false, "Unexcepted error removing subject", "Database");
+                    this.ResultLogs.Add(LogSingleton.Instance.DeleteSubjectError);
                     return false;
                 }
 
-                this.AddLog(true, "Subject removed successfully", "Database");
+                this.ResultLogs.Add(LogSingleton.Instance.DeleteSubjectDone);
                 return true;
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error removing subject", "Database");
+                this.ResultLogs.Add(LogSingleton.Instance.DeleteSubjectError);
                 return false;
             }
         }
@@ -368,22 +376,22 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return;
                 }
 
                 if (this.subject == null || this.subject.Irises.Count == 0 || (this.subject.Irises.Count > 0 && this.subject.Irises[this.subject.Irises.Count - 1].Image == null))
                 {
-                    this.AddLog(false, "No valid image to save found", "Save image");
+                    this.ResultLogs.Add(LogSingleton.Instance.SaveImageError);
                     return;
                 }
 
                 this.subject.Irises[this.subject.Irises.Count - 1].Image.Save(pathToImageFile);
-                this.AddLog(true, "Saving image successful", "Save image");
+                this.ResultLogs.Add(LogSingleton.Instance.SaveImageDone);
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during saving image", "Save image");
+                this.ResultLogs.Add(LogSingleton.Instance.SaveImageError);
                 return;
             }
         }
@@ -394,7 +402,7 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return null;
                 }
 
@@ -404,7 +412,9 @@
                     subjectID = this.CreateNextSubjectID();
                     if (subjectID == 0)
                     {
-                        this.AddLog(false, "Enroll failed (cannot create subjectID)", "Save template");
+                        LogModel saveTemplateError = LogSingleton.Instance.SaveTemplateError;
+                        saveTemplateError.Description = $"{saveTemplateError.Description} (cannot create subjectID)";
+                        this.ResultLogs.Add(saveTemplateError);
                         return null;
                     }
 
@@ -414,11 +424,16 @@
                     NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                     if (performedTask.Status != NBiometricStatus.Ok)
                     {
-                        this.AddLog(false, "Enroll failed (status = " + performedTask.Status + ")", "Save template");
+                        LogModel saveTemplateErrorTask = LogSingleton.Instance.SaveTemplateError;
+                        saveTemplateErrorTask.Description = $"{saveTemplateErrorTask.Description} (status = {performedTask.Status})";
+                        this.ResultLogs.Add(saveTemplateErrorTask);
                         return null;
                     }
 
-                    this.AddLog(true, "Enroll successful" + subjectID.ToString(), "Save template");
+
+                    LogModel saveTemplateDone = LogSingleton.Instance.SaveTemplateDone;
+                    saveTemplateDone.Description = $"{saveTemplateDone.Description} {subjectID.ToString()}";
+                    this.ResultLogs.Add(saveTemplateDone);
                     return new SampleModel() { SubjectID = subjectID, TemplateID = 1, Path = Path.Combine("IrisDB", subjectID.ToString()), ChosenEye = this.subject.Irises.Last().Position.ToString()[0] };
                 }
 
@@ -436,17 +451,21 @@
                     NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                     if (performedTask.Status != NBiometricStatus.Ok)
                     {
-                        this.AddLog(false, "Enroll failed (status = " + performedTask.Status + ")", "Save template");
+                        LogModel saveTemplateErrorTask = LogSingleton.Instance.SaveTemplateError;
+                        saveTemplateErrorTask.Description = $"{saveTemplateErrorTask.Description} (status = {performedTask.Status})";
+                        this.ResultLogs.Add(saveTemplateErrorTask);
                         return null;
                     }
 
-                    this.AddLog(true, "Enroll successful " + subjectID.ToString(), "Save template");
+                    LogModel saveTemplateDone = LogSingleton.Instance.SaveTemplateDone;
+                    saveTemplateDone.Description = $"{saveTemplateDone.Description} {subjectID.ToString()}";
+                    this.ResultLogs.Add(saveTemplateDone);
                     return new SampleModel() { SubjectID = subjectID, TemplateID = subj.Irises.Count, Path = Path.Combine("IrisDB", subjectID.ToString()), ChosenEye = subj.Irises.Last().Position.ToString()[0] };
                 }
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during saving template", "Save template");
+                this.ResultLogs.Add(LogSingleton.Instance.SaveTemplateError);
                 return null;
             }
         }
@@ -457,7 +476,7 @@
             {
                 if (!this.IsProcessorReady)
                 {
-                    this.AddLog(false, "No license obtained", "License");
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                     return;
                 }
 
@@ -473,11 +492,11 @@
                 this.biometricClient.MatchingMaximalResultCount = settings.Item2.MaximalResultCount;
                 this.biometricClient.MatchingFirstResultOnly = settings.Item2.IsFirstReadOnlyChecked;
 
-                this.AddLog(true, "Saving settings successful", "Settings");
+                this.ResultLogs.Add(LogSingleton.Instance.SettingsSaveDone);
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during saving settings", "Settings");
+                this.ResultLogs.Add(LogSingleton.Instance.SettingsSaveError);
                 return;
             }
         }
@@ -490,12 +509,12 @@
                 this.biometricClient.RemoteConnections.Clear();
                 this.biometricClient.SetDatabaseConnectionToSQLite("./IrisDB.db");
 
-                this.AddLog(true, "Connected to database successfully", "Database");
+                this.ResultLogs.Add(LogSingleton.Instance.DatabaseConnectionDone);
                 return true;
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during connecting to database", "Database");
+                this.ResultLogs.Add(LogSingleton.Instance.DatabaseConnectionError);
                 return false;
             }
         }
@@ -566,17 +585,18 @@
                 {
                     if (!NLicense.ObtainComponents("/local", 5000, component))
                     {
-                        this.AddLog(false, "Cannot obtain \"" + component + "\" license", "License");
+                        LogModel licensesUnavailable = LogSingleton.Instance.SaveTemplateDone;
+                        licensesUnavailable.Description = $"{licensesUnavailable.Description} (\" {component}\"";
+                        this.ResultLogs.Add(licensesUnavailable);
                         return false;
                     }
                 }
 
-                this.AddLog(true, "Licenses obtained successfully", "License");
                 return true;
             }
             catch (Exception)
             {
-                this.AddLog(false, "Unexcepted error during obtaining licenses", "License");
+                this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
                 return false;
             }
         }

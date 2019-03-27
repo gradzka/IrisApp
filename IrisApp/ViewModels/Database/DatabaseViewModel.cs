@@ -90,7 +90,7 @@
             }
             else
             {
-                this.Logs.Insert(0, new LogModel() { Code = 'E', Description = "Folder doesn't exists", Name = "Database" });
+                this.Logs.Insert(0, LogSingleton.Instance.DirectoryNotFound);
             }
         });
 

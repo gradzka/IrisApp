@@ -9,12 +9,10 @@
     public abstract class IrisProcessorModel
     {
         private bool isProcessorReady = false;
-        private readonly string pathToImages = "IrisDB";
-        private List<LogModel> resultLogs = null;
 
         public IrisProcessorModel()
         {
-            this.resultLogs = new List<LogModel>();
+            this.ResultLogs = new List<LogModel>();
         }
 
         public bool IsProcessorReady
@@ -31,7 +29,9 @@
             }
         }
 
-        public string PathToImages => this.pathToImages;
+        public string PathToImages => "IrisDB";
+
+        protected List<LogModel> ResultLogs { get; set; } = null;
 
         public abstract Task<List<SubjectModel>> GetAllSubjectsAsync();
 
@@ -41,8 +41,8 @@
 
         public List<LogModel> GetLogs()
         {
-            List<LogModel> logs = new List<LogModel>(this.resultLogs);
-            this.resultLogs.Clear();
+            List<LogModel> logs = new List<LogModel>(this.ResultLogs);
+            this.ResultLogs.Clear();
             return logs;
         }
 
@@ -63,11 +63,6 @@
         public abstract Task<SampleModel> SaveToDBAsync(int subjectID);
 
         public abstract void SetSettings(Tuple<EnrollmentViewModel, MatchingViewModel> settings);
-
-        protected void AddLog(bool isSuccess, string description, string name)
-        {
-            this.resultLogs.Add(new LogModel() { Code = isSuccess ? 'S' : 'E', Description = description, Name = name });
-        }
 
         protected abstract bool ConnectToDB();
 

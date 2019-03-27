@@ -122,9 +122,10 @@
         {
             if (param is null)
             {
-                this.Logs.Insert(0, new LogModel() { Code = 'E', Description = "No source selected", Name = "Source" });
+                this.Logs.Insert(0, LogSingleton.Instance.NoSourceSelected);
                 return;
             }
+
             this.IsDialogOpen = true;
             this.SelectedSourceRef = param;
         });
