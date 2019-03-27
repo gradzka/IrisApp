@@ -30,7 +30,10 @@
             {
             }
 
-            this.SaveSettings();
+            if (processor.IsProcessorReady)
+            {
+                this.SaveSettings();
+            }
         }
 
         public EnrollmentViewModel EnrollmentViewModel { get; set; }

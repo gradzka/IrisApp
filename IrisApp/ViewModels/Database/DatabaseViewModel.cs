@@ -18,7 +18,10 @@
             : base(processor, logs)
         {
             this.Subjects = new ObservableCollection<SubjectModel>();
-            this.GetSubjectsFromDatabaseAsync();
+            if (processor.IsProcessorReady)
+            {
+                this.GetSubjectsFromDatabaseAsync();
+            }
         }
 
         public ObservableCollection<SubjectModel> Subjects

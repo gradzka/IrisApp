@@ -185,7 +185,7 @@
                     return;
                 }
 
-                if (this.subject == null)
+                if (this.subject is null)
                 {
                     this.ResultLogs.Add(LogSingleton.Instance.UseSelectedSource);
                     return;
@@ -202,7 +202,7 @@
                 LogModel identificationResult = LogSingleton.Instance.IdentificationResult;
                 foreach (NMatchingResult matchedResult in this.subject.MatchingResults)
                 {
-                    identificationResult.Description += $"\n{matchedResult.Id} {matchedResult.Score.ToString()}";
+                    identificationResult.Description = $"{identificationResult.Description}\n{matchedResult.Id} {matchedResult.Score.ToString()}";
                 }
 
                 this.ResultLogs.Add(identificationResult);
@@ -284,7 +284,7 @@
                 }
 
                 this.subject = new NSubject();
-                if (this.iris == null)
+                if (this.iris is null)
                 {
                     this.ResultLogs.Add(LogSingleton.Instance.PreviewUnavailable);
                     return false;
@@ -358,7 +358,7 @@
                     return;
                 }
 
-                if (this.subject == null || this.subject.Irises.Count == 0 || (this.subject.Irises.Count > 0 && this.subject.Irises[this.subject.Irises.Count - 1].Image == null))
+                if (this.subject is null || this.subject.Irises.Count == 0 || (this.subject.Irises.Count > 0 && this.subject.Irises[this.subject.Irises.Count - 1].Image is null))
                 {
                     this.ResultLogs.Add(LogSingleton.Instance.SaveImageError);
                     return;
@@ -585,7 +585,7 @@
                     if (!NLicense.ObtainComponents("/local", 5000, component))
                     {
                         LogModel licensesUnavailable = LogSingleton.Instance.LicensesUnavailable;
-                        licensesUnavailable.Description = $"{licensesUnavailable.Description} (\"{component}\"";
+                        licensesUnavailable.Description = $"{licensesUnavailable.Description} (\"{component}\")";
                         this.ResultLogs.Add(licensesUnavailable);
                         return false;
                     }

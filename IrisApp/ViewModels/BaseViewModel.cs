@@ -56,7 +56,7 @@ namespace IrisApp.ViewModels
         {
             if (TypeDescriptor.GetProperties(this)[propertyName] == null)
             {
-                throw new ArgumentNullException(this.GetType().Name + " does not contain property: " + propertyName);
+                throw new ArgumentNullException($"{this.GetType().Name} does not contain property: {propertyName}");
             }
         }
     }

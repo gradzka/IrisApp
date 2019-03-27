@@ -8,7 +8,8 @@
         xmlns:converters="clr-namespace:IrisApp.Converters"
         mc:Ignorable="d" Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="{Binding CurrentWindowState, Mode=TwoWay}" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        MinWidth="760" MinHeight="600">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
@@ -37,7 +38,7 @@
     </Window.Triggers>
     <Grid Background="#FFEEEEEE">
         <StackPanel VerticalAlignment="Top">
-            <Grid Background="#673ab7" Height="30">
+            <Grid Background="#673ab7" Height="30" MouseMove="TriggerMoveWindow">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0">
                     <Button Command="{Binding MinimizeAppCommand}" Style="{DynamicResource ResourceKey=MinimizeButtonStyle}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="White" ToolTip="Minimize">
                         <materialDesign:PackIcon Kind="WindowMinimize" Margin="0 7 0 0"/>
@@ -48,10 +49,10 @@
                                 <Style TargetType="materialDesign:PackIcon">
                                     <Setter Property="Kind" Value="WindowMaximize"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMaximized}" Value="True">
+                                        <DataTrigger Binding="{Binding CurrentWindowState}" Value="2">
                                             <Setter Property="Kind" Value="WindowRestore"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsMaximized}" Value="False">
+                                        <DataTrigger Binding="{Binding CurrentWindowState}" Value="0">
                                             <Setter Property="Kind" Value="WindowMaximize"/>
                                         </DataTrigger>
                                     </Style.Triggers>

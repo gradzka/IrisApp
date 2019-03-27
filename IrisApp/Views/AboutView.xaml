@@ -30,7 +30,7 @@
                             <StackPanel Grid.Column="1">
                                 <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 8">Open Source</TextBlock>
                                 <TextBlock TextWrapping="Wrap" Margin="16 0 16 8" Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Top">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis non cum, impedit error praesentium dolor dolores modi nesciunt harum amet, cumque illo ratione neque dignissimos et excepturi animi autem? Vero!
+                                This software is under Microsoft Public License (MS-PL). VERIEYE SDK is required for full functionality.
                                 </TextBlock>
                             </StackPanel>
                             <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Padding="8">

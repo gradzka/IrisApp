@@ -20,7 +20,6 @@ namespace IrisApp.ViewModels
         private Visibility closeMenuButtonVisibility = Visibility.Collapsed;
         private IPageViewModel currentPageViewModel;
         private WindowState currentWindowState;
-        private bool isMaximized = false;
         private Visibility openMenuButtonVisibility = Visibility.Visible;
         private List<IPageViewModel> pageViewModels;
         private int selectedPageIndex = 0;
@@ -84,22 +83,6 @@ namespace IrisApp.ViewModels
             }
         }
 
-        public bool IsMaximized
-        {
-            get => this.isMaximized;
-
-            set
-            {
-                if (this.isMaximized == value)
-                {
-                    return;
-                }
-
-                this.isMaximized = value;
-                this.OnPropertyChanged(nameof(this.IsMaximized));
-            }
-        }
-
         public Visibility OpenMenuButtonVisibility
         {
             get => this.openMenuButtonVisibility;
@@ -120,7 +103,7 @@ namespace IrisApp.ViewModels
         {
             get
             {
-                if (this.pageViewModels == null)
+                if (this.pageViewModels is null)
                 {
                     this.pageViewModels = new List<IPageViewModel>();
                 }
@@ -154,8 +137,7 @@ namespace IrisApp.ViewModels
 
         public ICommand MaximizeOrRestoreAppCommand => new RelayCommand<Action>(param =>
         {
-            this.CurrentWindowState = this.IsMaximized ? WindowState.Normal : WindowState.Maximized;
-            this.IsMaximized = !this.IsMaximized;
+            this.CurrentWindowState = this.CurrentWindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         });
 
         public ICommand MinimizeAppCommand => new RelayCommand<Action>(param => { this.CurrentWindowState = WindowState.Minimized; });

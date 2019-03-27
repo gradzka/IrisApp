@@ -26,10 +26,10 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding IsMaximized}" Value="True">
+            <DataTrigger Binding="{Binding CurrentWindowState}" Value="2">
                 <Setter Property="ToolTip" Value="Restore Down"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsMaximized}" Value="False">
+            <DataTrigger Binding="{Binding CurrentWindowState}" Value="0">
                 <Setter Property="ToolTip" Value="Maximize"/>
             </DataTrigger>
         </Style.Triggers>
