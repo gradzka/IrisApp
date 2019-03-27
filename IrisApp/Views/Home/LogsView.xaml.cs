@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for EyeDialogView.xaml
+    /// Interaction logic for LogsView.xaml
     /// </summary>
-    public partial class EyeDialogView : UserControl
+    public partial class LogsView : UserControl
     {
-        public EyeDialogView()
+        public LogsView()
         {
             this.InitializeComponent();
         }

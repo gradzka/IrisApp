@@ -6,7 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:modelsHome ="clr-namespace:IrisApp.Models.Home"
              xmlns:converters="clr-namespace:IrisApp.Converters"
              Height="auto" Width="auto"
              x:Name="root"
@@ -55,65 +54,7 @@
                     </GroupBox>
                 </Grid>
                 <Grid Grid.Column="1" Grid.RowSpan="2">
-                    <GroupBox  Header="Logs" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 20 20 20" Height="Auto">
-                        <GroupBox.HeaderTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <CheckBox Name="DeleteSelectedCheckbox" IsThreeState="False" Margin="0 0 0 0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" Content="Delete selected"/>
-                                        <Button Command="{Binding DataContext.LogsViewModel.DeleteAllLogsCommand, ElementName=root}" CommandParameter="{Binding ElementName=DeleteSelectedCheckbox, Path=IsChecked}" Grid.Column="2" Style="{DynamicResource ResourceKey=DeleteAllButtonStyle}" Margin="8 0 0 0">
-                                            <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>
-                                        </Button>
-                                    </StackPanel>
-                                </DockPanel>
-                            </DataTemplate>
-                        </GroupBox.HeaderTemplate>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding LogsViewModel.Logs}" Grid.IsSharedSizeScope="True">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type modelsHome:LogModel}">
-                                        <Border x:Name="Border" Padding="8" BorderThickness="0 0 0 1" BorderBrush="{DynamicResource MaterialDesignDivider}" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition SharedSizeGroup="Checkerz" />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition SharedSizeGroup="Checkerz" />
-                                                </Grid.ColumnDefinitions>
-                                                <ToggleButton Foreground="White" VerticalAlignment="Center" IsChecked="{Binding IsSelected}" Content="{Binding Code}" materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                                                    <ToggleButton.Style>
-                                                        <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignActionLightToggleButton}">
-                                                            <Setter Property="ToolTip" Value=""/>
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsChecked" Value="True">
-                                                                    <Setter Property="ToolTip" Value="Log read"/>
-                                                                </Trigger>
-                                                                <Trigger Property="IsChecked" Value="False">
-                                                                    <Setter Property="ToolTip" Value="{Binding Description}"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </ToggleButton.Style>
-                                                </ToggleButton>
-                                                <StackPanel Margin="8 0 0 0" Grid.Column="1">
-                                                    <TextBlock FontWeight="Bold" Text="{Binding Name}" ToolTip="{Binding Description}" />
-                                                    <TextBlock Text="{Binding Description}" ToolTip="{Binding Description}" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                                <Button Command="{Binding DataContext.LogsViewModel.DeleteLogCommand, ElementName=root}" CommandParameter="{Binding}" Grid.Column="2" Width="30" Height="30" Style="{DynamicResource ResourceKey=DeleteForeverButtonStyle}" Padding="0" Margin="8 0 0 0" ToolTip="Delete">
-                                                    <materialDesign:PackIcon Kind="DeleteForever" Margin="0 0 0 0" Width="25" Height="25"/>
-                                                </Button>
-                                            </Grid>
-                                        </Border>
-                                        <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
-                                            </DataTrigger>
-                                        </DataTemplate.Triggers>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </GroupBox>
+                    <local:LogsView/>
                 </Grid>
             </Grid>
             <local:SaveDialogView/>
