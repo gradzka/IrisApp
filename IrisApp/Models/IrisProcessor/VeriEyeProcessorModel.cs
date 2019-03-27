@@ -75,9 +75,7 @@
                     return null;
                 }
 
-                string[] status = this.biometricClient.ListIds();
-
-                return Array.ConvertAll(status, int.Parse).ToList();
+                return Array.ConvertAll(this.biometricClient.ListIds(), int.Parse).ToList();
             }
             catch (Exception)
             {
@@ -124,7 +122,7 @@
                 if (!this.IsProcessorReady)
                 {
                     this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
-                    return false;
+                    return null;
                 }
 
                 if (beforeCapturingFromDevice)
@@ -137,6 +135,7 @@
             catch (Exception)
             {
                 this.ResultLogs.Add(LogSingleton.Instance.PreviewUnavailable);
+                this.iris = null;
                 return null;
             }
         }
@@ -196,14 +195,16 @@
                 NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                 if (performedTask.Status != NBiometricStatus.Ok)
                 {
-                    LogModel identificationFailed = LogSingleton.Instance.IdentificationFailed;
-                    identificationFailed.Description = $"{identificationFailed.Description} (status = {performedTask.Status})";
-                    this.ResultLogs.Add(identificationFailed);
+                    this.CreateErrorLogWithStatus(LogSingleton.Instance.IdentificationFailed, performedTask.Status);
                     return;
                 }
 
                 LogModel identificationResult = LogSingleton.Instance.IdentificationResult;
-                identificationResult.Description = $"{identificationResult.Description}\n{this.subject.MatchingResults[0].Id} {this.subject.MatchingResults[0].Score.ToString()}";
+                foreach (NMatchingResult matchedResult in this.subject.MatchingResults)
+                {
+                    identificationResult.Description += $"\n{matchedResult.Id} {matchedResult.Score.ToString()}";
+                }
+
                 this.ResultLogs.Add(identificationResult);
                 return;
             }
@@ -237,22 +238,13 @@
                     FileName = pathToImageFile
                 };
 
-                if (eye == 'L')
-                {
-                    this.iris.Position = NEPosition.Left;
-                }
-                else if (eye == 'R')
-                {
-                    this.iris.Position = NEPosition.Right;
-                }
-                else if (eye == 'U')
-                {
-                    this.iris.Position = NEPosition.Unknown;
-                }
-                else
+                NEPosition? nEPosition = this.CharToNEPosition(eye);
+                if (!nEPosition.HasValue)
                 {
                     return false;
                 }
+
+                this.iris.Position = nEPosition.Value;
 
                 this.subject.Irises.Add(this.iris);
                 this.biometricClient.IrisesTemplateSize = NTemplateSize.Large;
@@ -261,14 +253,11 @@
                 NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                 if (performedTask.Status != NBiometricStatus.Ok)
                 {
-                    LogModel extractionFailed = LogSingleton.Instance.ExtractionFailed;
-                    extractionFailed.Description = $"{extractionFailed.Description} (status = {performedTask.Status})";
-                    this.ResultLogs.Add(extractionFailed);
+                    this.CreateErrorLogWithStatus(LogSingleton.Instance.ExtractionFailed, performedTask.Status);
                     return false;
                 }
 
                 this.ResultLogs.Add(LogSingleton.Instance.ExtractionResult);
-                var a = this.subject.GetTemplate();
                 return true;
             }
             catch (Exception)
@@ -303,22 +292,13 @@
 
                 this.biometricClient.IrisScanner = (NIrisScanner)device;
 
-                if (eye == 'L')
-                {
-                    this.iris.Position = NEPosition.Left;
-                }
-                else if (eye == 'R')
-                {
-                    this.iris.Position = NEPosition.Right;
-                }
-                else if (eye == 'U')
-                {
-                    this.iris.Position = NEPosition.Unknown;
-                }
-                else
+                NEPosition? nEPosition = this.CharToNEPosition(eye);
+                if (!nEPosition.HasValue)
                 {
                     return false;
                 }
+
+                this.iris.Position = nEPosition.Value;
 
                 this.subject.Irises.Add(this.iris);
 
@@ -327,9 +307,7 @@
                 NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                 if (performedTask.Status != NBiometricStatus.Ok)
                 {
-                    LogModel captureExtractionFailed = LogSingleton.Instance.CaptureExtractionFailed;
-                    captureExtractionFailed.Description = $"{captureExtractionFailed.Description} (status = {performedTask.Status})";
-                    this.ResultLogs.Add(captureExtractionFailed);
+                    this.CreateErrorLogWithStatus(LogSingleton.Instance.CaptureExtractionFailed, performedTask.Status);
                     return false;
                 }
 
@@ -424,12 +402,9 @@
                     NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                     if (performedTask.Status != NBiometricStatus.Ok)
                     {
-                        LogModel saveTemplateErrorTask = LogSingleton.Instance.SaveTemplateError;
-                        saveTemplateErrorTask.Description = $"{saveTemplateErrorTask.Description} (status = {performedTask.Status})";
-                        this.ResultLogs.Add(saveTemplateErrorTask);
+                        this.CreateErrorLogWithStatus(LogSingleton.Instance.SaveTemplateError, performedTask.Status);
                         return null;
                     }
-
 
                     LogModel saveTemplateDone = LogSingleton.Instance.SaveTemplateDone;
                     saveTemplateDone.Description = $"{saveTemplateDone.Description} {subjectID.ToString()}";
@@ -451,9 +426,7 @@
                     NBiometricTask performedTask = await this.biometricClient.PerformTaskAsync(task);
                     if (performedTask.Status != NBiometricStatus.Ok)
                     {
-                        LogModel saveTemplateErrorTask = LogSingleton.Instance.SaveTemplateError;
-                        saveTemplateErrorTask.Description = $"{saveTemplateErrorTask.Description} (status = {performedTask.Status})";
-                        this.ResultLogs.Add(saveTemplateErrorTask);
+                        this.CreateErrorLogWithStatus(LogSingleton.Instance.SaveTemplateError, performedTask.Status);
                         return null;
                     }
 
@@ -539,6 +512,32 @@
             }
         }
 
+        private NEPosition? CharToNEPosition(char eye)
+        {
+            if (eye == 'L')
+            {
+                return NEPosition.Left;
+            }
+            else if (eye == 'R')
+            {
+                return NEPosition.Right;
+            }
+            else if (eye == 'U')
+            {
+                return NEPosition.Unknown;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private void CreateErrorLogWithStatus(LogModel errorLog, NBiometricStatus status)
+        {
+            errorLog.Description = $"{errorLog.Description} (status = {status})";
+            this.ResultLogs.Add(errorLog);
+        }
+
         private int CreateNextSubjectID()
         {
             try
@@ -585,8 +584,8 @@
                 {
                     if (!NLicense.ObtainComponents("/local", 5000, component))
                     {
-                        LogModel licensesUnavailable = LogSingleton.Instance.SaveTemplateDone;
-                        licensesUnavailable.Description = $"{licensesUnavailable.Description} (\" {component}\"";
+                        LogModel licensesUnavailable = LogSingleton.Instance.LicensesUnavailable;
+                        licensesUnavailable.Description = $"{licensesUnavailable.Description} (\"{component}\"";
                         this.ResultLogs.Add(licensesUnavailable);
                         return false;
                     }

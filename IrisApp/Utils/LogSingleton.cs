@@ -63,9 +63,9 @@
 
         public LogModel SaveImageDone => new LogModel { Code = 'S', Description = "Image saved", Name = "Save image" };
 
-        public LogModel SaveTemplateError => new LogModel { Code = 'E', Description = "Enroll failed", Name = "Save templatee" };
+        public LogModel SaveTemplateError => new LogModel { Code = 'E', Description = "Enroll failed", Name = "Save template" };
 
-        public LogModel SaveTemplateDone => new LogModel { Code = 'S', Description = "Enroll done", Name = "Save templatee" };
+        public LogModel SaveTemplateDone => new LogModel { Code = 'S', Description = "Enroll done", Name = "Save template" };
 
         public LogModel SettingsRestored => new LogModel { Code = 'E', Description = "Restored to the default settings", Name = "Settings" };
 
