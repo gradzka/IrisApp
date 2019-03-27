@@ -102,7 +102,7 @@
                 };
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    await this.Processor.LoadFromImageAsync(openFileDialog.FileName);
+                    await this.Processor.LoadFromImageAsync(openFileDialog.FileName, this.ChosenEye);
                     this.WindowsFormsHost = this.Processor.GetPreviewControl();
                     this.GetLogsFromProcessor();
                 }

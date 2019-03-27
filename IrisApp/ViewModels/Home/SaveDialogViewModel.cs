@@ -105,7 +105,7 @@
                 {
                     Directory.CreateDirectory(sample.Path);
                 }
-                this.Processor.SaveImage(Path.Combine(sample.Path, $"{sample.SubjectID.ToString()}_{sample.TemplateID.ToString()}.png"));
+                this.Processor.SaveImage(Path.Combine(sample.Path, $"{sample.SubjectID.ToString()}_{sample.TemplateID.ToString()}_{sample.ChosenEye.ToString()}.png"));
             }
 
             this.GetLogsFromProcessor();

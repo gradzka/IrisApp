@@ -208,7 +208,7 @@
             }
         }
 
-        public override async Task<bool> LoadFromImageAsync(string pathToImageFile)
+        public override async Task<bool> LoadFromImageAsync(string pathToImageFile, char eye)
         {
             try
             {
@@ -230,6 +230,24 @@
                 {
                     FileName = pathToImageFile
                 };
+
+                if (eye == 'L')
+                {
+                    this.iris.Position = NEPosition.Left;
+                }
+                else if (eye == 'R')
+                {
+                    this.iris.Position = NEPosition.Right;
+                }
+                else if (eye == 'U')
+                {
+                    this.iris.Position = NEPosition.Unknown;
+                }
+                else
+                {
+                    this.AddLog(false, "Incorrect eye parameter received", "Capture/Extraction");
+                    return false;
+                }
 
                 this.subject.Irises.Add(this.iris);
                 this.biometricClient.IrisesTemplateSize = NTemplateSize.Large;
@@ -285,6 +303,10 @@
                 else if (eye == 'R')
                 {
                     this.iris.Position = NEPosition.Right;
+                }
+                else if (eye == 'U')
+                {
+                    this.iris.Position = NEPosition.Unknown;
                 }
                 else
                 {
@@ -397,7 +419,7 @@
                     }
 
                     this.AddLog(true, "Enroll successful" + subjectID.ToString(), "Save template");
-                    return new SampleModel() { SubjectID = subjectID, TemplateID = 1, Path = Path.Combine("IrisDB", subjectID.ToString()) };
+                    return new SampleModel() { SubjectID = subjectID, TemplateID = 1, Path = Path.Combine("IrisDB", subjectID.ToString()), ChosenEye = this.subject.Irises.Last().Position.ToString()[0] };
                 }
 
                 // existing
@@ -419,7 +441,7 @@
                     }
 
                     this.AddLog(true, "Enroll successful " + subjectID.ToString(), "Save template");
-                    return new SampleModel() { SubjectID = subjectID, TemplateID = subj.Irises.Count, Path = Path.Combine("IrisDB", subjectID.ToString()) };
+                    return new SampleModel() { SubjectID = subjectID, TemplateID = subj.Irises.Count, Path = Path.Combine("IrisDB", subjectID.ToString()), ChosenEye = subj.Irises.Last().Position.ToString()[0] };
                 }
             }
             catch (Exception)

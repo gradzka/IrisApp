@@ -52,7 +52,7 @@
 
         public abstract Task IdentifyAsync();
 
-        public abstract Task<bool> LoadFromImageAsync(string pathToImageFile);
+        public abstract Task<bool> LoadFromImageAsync(string pathToImageFile, char eye);
 
         public abstract Task<bool> LoadFromScannerAsync(object device, char eye);
 
