@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrisApp", "IrisApp\IrisApp.csproj", "{906D6DE1-4118-441B-B596-94C743A5B66E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{906D6DE1-4118-441B-B596-94C743A5B66E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{906D6DE1-4118-441B-B596-94C743A5B66E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{906D6DE1-4118-441B-B596-94C743A5B66E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{906D6DE1-4118-441B-B596-94C743A5B66E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56B6618B-B66F-4E6F-806A-7C4028E943E1}
+	EndGlobalSection
+EndGlobal

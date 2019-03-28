@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="IrisApp.Views.Home.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:IrisApp.Converters"
+             Height="auto" Width="auto"
+             x:Name="root"
+             xmlns:local="clr-namespace:IrisApp.Views.Home">
+
+    <UserControl.Resources>
+        <converters:GridColumnSizeConverter x:Key="GridColumnSizeConverter"/>
+        <converters:CharToBoolConverter x:Key="CharToBoolConverter"/>
+    </UserControl.Resources>
+    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+        <Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="302"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox Name="SourcesCombobox"  materialDesign:HintAssist.Hint="Select source" IsTextSearchEnabled="True" Margin="20 10 10 0" MinWidth="72" VerticalAlignment="Center" ItemsSource="{Binding Sources}" DisplayMemberPath="Name" SelectedValue="{Binding Path=SelectedSource}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        <Button Command="{Binding ScanSourcesCommand}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Scan sources">
+                            <materialDesign:PackIcon Kind="Magnify" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
+                        </Button>
+                        <Button Command="{Binding EyeDialogViewModel.ShowDialogCommand}" CommandParameter="{Binding SelectedSource}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Use selected source">
+                            <materialDesign:PackIcon Kind="Target" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
+                        </Button>
+                        <Button Command="{Binding SaveDialogViewModel.ShowDialogCommand}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Save template to database">
+                            <materialDesign:PackIcon Kind="ContentSave" Width="25" Height="25" HorizontalAlignment="Center" Margin="0 0 0 0"/>
+                        </Button>
+                        <Button Command="{Binding IdentifyCommand}" Style="{DynamicResource MaterialDesignRaisedButton}" Width="30" Height="30" Padding="0" Background="WhiteSmoke" BorderBrush="WhiteSmoke" materialDesign:ShadowAssist.ShadowDepth="Depth2" Foreground="#424242" Margin="10 10 10 0" ToolTip="Identify">
+                            <ContentControl Content="{StaticResource FaceRecognitionIcon}" Margin="0 0 0 0"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="1"  Width="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 360}" Height="{Binding ActualHeight, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}, Converter={StaticResource GridColumnSizeConverter}, ConverterParameter = 90}">
+                    <GroupBox  Header="Preview" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 10 20 20" Height="Auto" Width="Auto">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="{Binding}" />
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <ContentPresenter Content="{Binding EyeDialogViewModel.WindowsFormsHost}" />
+                    </GroupBox>
+                </Grid>
+                <Grid Grid.Column="1" Grid.RowSpan="2">
+                    <local:LogsView/>
+                </Grid>
+            </Grid>
+            <local:SaveDialogView/>
+            <local:EyeDialogView/>
+        </Grid>
+    </materialDesign:TransitioningContent>
+</UserControl>

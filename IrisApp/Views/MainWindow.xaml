@@ -1,0 +1,76 @@
+﻿<!--Based on: https://github.com/Abel13/Pizzaria1 & https://github.com/Abel13/NavigationDrawer-->
+<Window x:Class="IrisApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converters="clr-namespace:IrisApp.Converters"
+        mc:Ignorable="d" Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="{Binding CurrentWindowState, Mode=TwoWay}" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        MinWidth="760" MinHeight="600">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <converters:SelectedPageBrushConverter x:Key="SelectedPageBrushConverter"/>
+    </Window.Resources>
+    <Grid Background="#FFEEEEEE">
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#673ab7" Height="30" MouseMove="TriggerMoveWindow">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0">
+                    <Button Command="{Binding MinimizeAppCommand}" Style="{DynamicResource ResourceKey=MinimizeButtonStyle}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="White" ToolTip="Minimize">
+                        <materialDesign:PackIcon Kind="WindowMinimize" Margin="0 7 0 0"/>
+                    </Button>
+                    <Button Style="{DynamicResource ResourceKey=MaximizeRestoreButtonStyle}" Command="{Binding MaximizeOrRestoreAppCommand}" Width="30" Height="30" Padding="0" Margin="0 0 0 0">
+                        <materialDesign:PackIcon>
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="WindowMaximize"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CurrentWindowState}" Value="2">
+                                            <Setter Property="Kind" Value="WindowRestore"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentWindowState}" Value="0">
+                                            <Setter Property="Kind" Value="WindowMaximize"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                    </Button>
+                    <Button Width="30" Height="30" Style="{DynamicResource ResourceKey=CloseButtonStyle}" Padding="0" ToolTip="Close">
+                        <materialDesign:PackIcon Kind="WindowClose"/>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction MethodName="Close" TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <Grid Margin="70 30 0 0">
+            <ContentControl  Content="{Binding CurrentPageViewModel}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        </Grid>
+        <Grid x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#1b1b1b">
+            <StackPanel>
+                <Grid Height="100" Background="White" />
+                <ListView x:Name="ListViewMenu" Foreground="#6d6d6d" FontFamily="Champagne &amp; Limousines" FontSize="18"  SelectedIndex ="{Binding SelectedPageIndex}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem Height="60" ToolTip="Home">
+                        <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>                    </ListViewItem>
+                    <ListViewItem Height="60" ToolTip="Database">
+                        <materialDesign:PackIcon Kind="Database" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 1}"/>
+                    </ListViewItem>
+                    <ListViewItem Height="60" ToolTip="Settings">
+                        <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 2}"/>
+                    </ListViewItem>
+                    <ListViewItem Height="60" ToolTip="About">
+                        <materialDesign:PackIcon Kind="About" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 3}"/>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
