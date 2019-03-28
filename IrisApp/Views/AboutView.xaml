@@ -41,7 +41,7 @@
                                         </Button>
                                     </materialDesign:Badged>
                                     <TextBlock Foreground="{DynamicResource MaterialDesignBodyLight}" TextWrapping="Wrap" Margin="16" VerticalAlignment="Center">
-                                        Feel like you want to start the project?  It would be gratefully received.
+                                        Feel like you want to star the project?  It would be gratefully received.
                                     </TextBlock>
                                 </DockPanel>
                             </Border>

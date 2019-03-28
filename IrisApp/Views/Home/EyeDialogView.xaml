@@ -23,7 +23,7 @@
                         <RowDefinition Height="15"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Margin="0 0 0 0" Text="Select eye option" TextWrapping="Wrap"/>
-                    <ComboBox Name="EyesCombobox" Grid.Row="1" VerticalAlignment="Top"  Margin="0 -16 0 0" materialDesign:HintAssist.Hint="Select identifier" MinWidth="72" ItemsSource="{Binding EyeDialogViewModel.Eyes}" DisplayMemberPath="Name" SelectedValue="{Binding Path=EyeDialogViewModel.ChosenEye}" SelectedValuePath="Sign" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox Name="EyesCombobox" Grid.Row="1" VerticalAlignment="Top"  Margin="0 -16 0 0" materialDesign:HintAssist.Hint="Select eye position" MinWidth="72" ItemsSource="{Binding EyeDialogViewModel.Eyes}" DisplayMemberPath="Name" SelectedValue="{Binding Path=EyeDialogViewModel.ChosenEye}" SelectedValuePath="Sign" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBox.SelectedItem>
                             <Binding Path="EyeDialogViewModel.ChosenEye" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
                         </ComboBox.SelectedItem>

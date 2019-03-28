@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:modelsHome ="clr-namespace:IrisApp.Models.Home"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:IrisApp.Views.Home"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <GroupBox  Header="Logs" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="20 20 20 20" Height="Auto">
