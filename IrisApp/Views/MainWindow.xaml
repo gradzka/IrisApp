@@ -58,15 +58,15 @@
             <StackPanel>
                 <Grid Height="100" Background="White" />
                 <ListView x:Name="ListViewMenu" Foreground="#6d6d6d" FontFamily="Champagne &amp; Limousines" FontSize="18"  SelectedIndex ="{Binding SelectedPageIndex}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListViewItem Height="60" ToolTip="Home">
+                    <ListViewItem Height="60" ToolTip="Home" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="15">
                         <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 0}"/>                    </ListViewItem>
-                    <ListViewItem Height="60" ToolTip="Database">
+                    <ListViewItem Height="60" ToolTip="Database" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="15">
                         <materialDesign:PackIcon Kind="Database" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 1}"/>
                     </ListViewItem>
-                    <ListViewItem Height="60" ToolTip="Settings">
+                    <ListViewItem Height="60" ToolTip="Settings" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="15">
                         <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 2}"/>
                     </ListViewItem>
-                    <ListViewItem Height="60" ToolTip="About">
+                    <ListViewItem Height="60" ToolTip="About" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="15">
                         <materialDesign:PackIcon Kind="About" Width="30" Height="30" VerticalAlignment="Center" Margin="12 8" Foreground="{Binding SelectedPageIndex, Converter={StaticResource SelectedPageBrushConverter}, ConverterParameter = 3}"/>
                     </ListViewItem>
                 </ListView>
