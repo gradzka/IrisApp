@@ -6,7 +6,7 @@ The purpose of the application is iris detection and identification. It's Window
 ## Description
 IrisApp allows to detect iris from file or iris scanner (online preview and scan sources option are available). After source selection you must choose eye position you want to detect (left, right, unknown). Captured sample can be saved in database (both in sqlite file and directory with pictures of subject) or used to identification. You can also browse app logs, database content, go to subjects directories and set personal settings.
 
-### Third Party Libraries:
+### Third Party Libraries
 - MaterialDesignColors
 - MaterialDesignThemes
 - MicrosoftExpressionInteraction
