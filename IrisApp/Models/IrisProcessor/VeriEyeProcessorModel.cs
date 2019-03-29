@@ -34,6 +34,24 @@
             }
         }
 
+        public override void CancelCapture()
+        {
+            try
+            {
+                if (!this.IsProcessorReady)
+                {
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
+                    return;
+                }
+
+                this.biometricClient.Cancel();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
         public override async Task<List<SubjectModel>> GetAllSubjectsAsync()
         {
             try

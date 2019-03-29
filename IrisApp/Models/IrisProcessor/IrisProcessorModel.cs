@@ -33,6 +33,8 @@
 
         protected List<LogModel> ResultLogs { get; set; } = null;
 
+        public abstract void CancelCapture();
+
         public abstract Task<List<SubjectModel>> GetAllSubjectsAsync();
 
         public abstract List<int> GetAllSubjectIDs();

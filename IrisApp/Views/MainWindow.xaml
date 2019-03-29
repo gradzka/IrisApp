@@ -16,6 +16,11 @@
     <Window.Resources>
         <converters:SelectedPageBrushConverter x:Key="SelectedPageBrushConverter"/>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding OnCloseCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Background="#FFEEEEEE">
         <StackPanel VerticalAlignment="Top">
             <Grid Background="#673ab7" Height="30" MouseMove="TriggerMoveWindow">
