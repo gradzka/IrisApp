@@ -4,7 +4,7 @@
 The purpose of the application is iris detection and identification. It's Windows-based application realized in WPF MVVM. It uses VERIEYE SDK (not included due to commercial license, from https://www.neurotechnology.com/verieye.html you can buy SDK or download 30-day SDK Trial).
 
 ## Description
-IrisApp allows to detect iris from file or iris scanner (online preview and scan sources option are available). After source selection you must choose eye position you want to detect (left, right, unknown). Captured sample can be saved in database (both in sqlite file and directory with pictures of subject) or used to identification. You can also browse app logs, database content, go to subjects directories and set personal settings.
+IrisApp allows to detect iris from file or iris scanner (online preview and scan sources option are available). After source selection you must choose eye position you want to detect (left, right, unknown). Captured sample can be saved in database (both in sqlite file and directory with pictures of subject) or used to identification. You can also browse app logs, database content, go to subjects directories and set personal settings. User Manual in Polish is available in Instrukcja.pdf.
 
 ### Third Party Libraries
 - MaterialDesignColors
