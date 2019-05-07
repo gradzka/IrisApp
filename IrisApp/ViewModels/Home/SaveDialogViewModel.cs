@@ -40,6 +40,10 @@
                     List<int> subjectIDs = this.Processor.GetAllSubjectIDs();
                     if (subjectIDs != null)
                     {
+                        if (!subjectIDs.Contains(0))
+                        {                  
+                            this.Subjects.Add(new SubjectModel() { SubjectID = 0 });
+                        }
                         foreach (int subjectID in subjectIDs)
                         {
                             this.Subjects.Add(new SubjectModel() { SubjectID = subjectID });
@@ -94,7 +98,7 @@
         {
             this.IsDialogOpen = false;
 
-            SampleModel sample = await this.Processor.SaveToDBAsync((subjectsComboboxIsEnabled == true && this.SelectedSubject != null) == true ? this.SelectedSubject.SubjectID : 0);
+            SampleModel sample = await this.Processor.SaveToDBAsync((subjectsComboboxIsEnabled == true && this.SelectedSubject != null) == true ? this.SelectedSubject.SubjectID : -1);
             if (sample != null)
             {
                 if (!Directory.Exists(this.Processor.PathToImages))
