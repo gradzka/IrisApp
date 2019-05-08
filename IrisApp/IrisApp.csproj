@@ -104,6 +104,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\CharToBoolConverter.cs" />
     <Compile Include="Converters\GridColumnSizeConverter.cs" />
+    <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Converters\SelectedPageBrushConverter.cs" />
     <Compile Include="Infrastructure\ObservableCollectionExtensions.cs" />
     <Compile Include="Models\Home\EyeModel.cs" />

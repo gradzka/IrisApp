@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Linq;
     using System.Windows.Input;
     using IrisApp.Models;
     using IrisApp.Models.Home;
@@ -15,11 +16,13 @@
         private bool isDialogOpen;
         private SubjectModel selectedSubject;
         private ObservableCollection<SubjectModel> subjects;
+        private bool rBCreateIsChecked;
 
         public SaveDialogViewModel(IrisProcessorModel processor, ObservableCollection<LogModel> logs)
             : base(processor, logs)
         {
             this.subjects = new ObservableCollection<SubjectModel>();
+            this.rBCreateIsChecked = true;
         }
 
         public bool IsDialogOpen
@@ -36,6 +39,7 @@
                 this.isDialogOpen = value;
                 if (value == true)
                 {
+                    SubjectModel selected = this.SelectedSubject;
                     this.Subjects.Clear();
                     List<int> subjectIDs = this.Processor.GetAllSubjectIDs();
                     if (subjectIDs != null)
@@ -43,6 +47,11 @@
                         foreach (int subjectID in subjectIDs)
                         {
                             this.Subjects.Add(new SubjectModel() { SubjectID = subjectID });
+                        }
+
+                        if (selected != null)
+                        {
+                            this.SelectedSubject = this.Subjects.Where(x => x.SubjectID == selected.SubjectID).FirstOrDefault();
                         }
                     }
                     else
@@ -53,6 +62,22 @@
 
                 this.GetLogsFromProcessor();
                 this.OnPropertyChanged(nameof(this.IsDialogOpen));
+            }
+        }
+
+        public bool RBCreateIsChecked
+        {
+            get => this.rBCreateIsChecked;
+
+            set
+            {
+                if (this.rBCreateIsChecked == value)
+                {
+                    return;
+                }
+
+                this.rBCreateIsChecked = value;
+                this.OnPropertyChanged(nameof(this.RBCreateIsChecked));
             }
         }
 
