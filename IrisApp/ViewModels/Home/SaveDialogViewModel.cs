@@ -45,9 +45,10 @@
                     if (subjectIDs != null)
                     {
                         if (!subjectIDs.Contains(0))
-                        {                  
+                        {
                             this.Subjects.Add(new SubjectModel() { SubjectID = 0 });
                         }
+
                         foreach (int subjectID in subjectIDs)
                         {
                             this.Subjects.Add(new SubjectModel() { SubjectID = subjectID });

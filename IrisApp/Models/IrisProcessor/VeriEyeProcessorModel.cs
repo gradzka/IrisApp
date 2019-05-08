@@ -412,7 +412,7 @@
                 }
 
                 // new subject
-                if (subjectID == -1 || (subjectID == 0 && !(GetAllSubjectIDs().Contains(0))))
+                if (subjectID == -1 || (subjectID == 0 && !this.GetAllSubjectIDs().Contains(0)))
                 {
                     if (subjectID == -1)
                     {
