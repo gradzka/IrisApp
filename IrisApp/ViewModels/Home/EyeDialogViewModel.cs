@@ -63,6 +63,11 @@
                     return;
                 }
 
+                if (value)
+                {
+                    this.Processor.CancelCapture();
+                }
+
                 this.isDialogOpen = value;
                 this.OnPropertyChanged(nameof(this.IsDialogOpen));
             }

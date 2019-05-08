@@ -31,6 +31,33 @@
                     CustomDataSchema = NBiographicDataSchema.Parse("(Path string)")
                 };
                 this.IsProcessorReady = this.ConnectToDB();
+                if (!Directory.Exists(this.PathToImages))
+                {
+                    Directory.CreateDirectory(this.PathToImages);
+                }
+
+                if (!Directory.Exists(Path.Combine("IrisDB", "0")))
+                {
+                    Directory.CreateDirectory(Path.Combine("IrisDB", "0"));
+                }
+            }
+        }
+
+        public override void CancelCapture()
+        {
+            try
+            {
+                if (!this.IsProcessorReady)
+                {
+                    this.ResultLogs.Add(LogSingleton.Instance.LicensesUnavailable);
+                    return;
+                }
+
+                this.biometricClient.Cancel();
+            }
+            catch (Exception)
+            {
+                return;
             }
         }
 
@@ -75,7 +102,7 @@
                     return null;
                 }
 
-                return Array.ConvertAll(this.biometricClient.ListIds(), int.Parse).ToList();
+                return Array.ConvertAll(this.biometricClient.ListIds(), int.Parse).OrderBy(x => x).ToList();
             }
             catch (Exception)
             {
@@ -385,15 +412,18 @@
                 }
 
                 // new subject
-                if (subjectID == 0)
+                if (subjectID == -1 || (subjectID == 0 && !(GetAllSubjectIDs().Contains(0))))
                 {
-                    subjectID = this.CreateNextSubjectID();
-                    if (subjectID == 0)
+                    if (subjectID == -1)
                     {
-                        LogModel saveTemplateError = LogSingleton.Instance.SaveTemplateError;
-                        saveTemplateError.Description = $"{saveTemplateError.Description} (cannot create subjectID)";
-                        this.ResultLogs.Add(saveTemplateError);
-                        return null;
+                        subjectID = this.CreateNextSubjectID();
+                        if (subjectID == 0)
+                        {
+                            LogModel saveTemplateError = LogSingleton.Instance.SaveTemplateError;
+                            saveTemplateError.Description = $"{saveTemplateError.Description} (cannot create subjectID)";
+                            this.ResultLogs.Add(saveTemplateError);
+                            return null;
+                        }
                     }
 
                     this.subject.Id = subjectID.ToString();

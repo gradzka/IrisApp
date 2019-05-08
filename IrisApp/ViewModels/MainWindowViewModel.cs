@@ -95,6 +95,11 @@ namespace IrisApp.ViewModels
             }
         }
 
+        public ICommand OnCloseCommand => new RelayCommand<Action>(param => 
+        {
+            this.Processor.CancelCapture();
+        });
+
         public ICommand MaximizeOrRestoreAppCommand => new RelayCommand<Action>(param =>
         {
             this.CurrentWindowState = this.CurrentWindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
