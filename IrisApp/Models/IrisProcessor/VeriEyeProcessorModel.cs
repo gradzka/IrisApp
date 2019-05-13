@@ -392,6 +392,7 @@
                 }
 
                 this.subject.Irises[this.subject.Irises.Count - 1].Image.Save(pathToImageFile);
+                File.SetAttributes(pathToImageFile, FileAttributes.ReadOnly);
                 this.ResultLogs.Add(LogSingleton.Instance.SaveImageDone);
             }
             catch (Exception)
